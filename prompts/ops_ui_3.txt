@@ -11,10 +11,13 @@ Generate a configuration JSON with the following structure and rules:
       "uploadType": "API",
       "uploadFormat": {
         "apiDetails": {
-          "uploadUrl": "https://api.emarsys.net/api/v3/event/${eventId}/trigger",
+          "uploadUrl": "",
           "apiType": "POST",
           "headers": {
             "Auth": "${bearerToken}"
+          },
+          "params" : {
+
           }
         },
         "requestBody": {
@@ -37,17 +40,54 @@ Generate a configuration JSON with the following structure and rules:
   "actionId": 421
 }
 
+
 Requirements:
+Static Fields
+"intId", "actionId", and "steps" must always retain their values as shown.
 
-- intId, actionId, and steps fields are static.
-- RealTimeUpload config is fixed as shown above.
-- In RealTimeTransform:
-  - requestTemplate is an empty object
-  - channelFieldTransformations must be generated using attributes from the request body
-- For each transformable attribute ( you have to figure out which attribute need transformation):
-  - Use full path like "attributes.email"
-  - The value must be a list of transformation objects:
-    - "type": "HASHING"
-    - "name": one of: "SHA256", "MD5", or "MD6"
+The full structure under "RealTimeUpload" is mostly fixed in shape.
 
-Return only the generated JSON config.
+RealTimeTransform Rules
+"requestTemplate" remains an empty object: {}.
+
+"channelFieldTransformations" is to be generated dynamically from the attributes present in the request body (i.e., uploadFormat.requestBody.requestBody).
+
+For each attribute that requires transformation:
+
+Use the full path (e.g., "attributes.email").
+
+The value should be a list of transformation objects:
+
+[
+  {
+    "type": "HASHING",
+    "name": "SHA256" | "MD5" | "MD6"
+  }
+]
+
+You must determine which fields require transformation (e.g., PII like email, phone).
+
+RealTimeUpload Rules
+"uploadType" is JSON always, under requestBody, requestBody will be empty object always .
+
+In "apiDetails" object:
+uploadUrl : find it from channel informations and replace it in the above template, if you find any value which need to take form user, keep it like ${keyNameCammelCase}
+apiType : find it from channel informations and replace it in the above template,
+headers : find it from channel informations and replace it in the above template ( all keys and values find from channel information, the above config json is just a template)
+params : find it from channel informations and replace it in the above template, ( all keys and values find from channel information, the above config json is just a template)
+
+Any dynamic value (which should provide by user) that must be provided by the user should be represented using ${keyNameInCamelCase} format (e.g., ${bearerToken}).
+
+In "headers":
+List all key-value pairs required by the API from information.
+If a value is fixed, include it directly. If it must come from the user, use the ${} placeholder.
+
+In "authDetails":
+Determine whether the API uses:
+"authType": "Basic" (username/password), or
+"authType": "API" (only if we have to hit some another api to fetch token ).
+if nothing was there don't add authDetails objects in the final config json.
+
+Set values as ${keyNameInCamelCase} for user-supplied values.
+
+Return only the generated JSON config based on the above structure and logic.

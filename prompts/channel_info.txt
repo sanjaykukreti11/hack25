@@ -3,7 +3,7 @@ This request sends information to Emarsys, a marketing platform, to trigger a sp
 🔍 Details in Simple Terms:
 URL (where the request goes):
 It sends the information to this web address:
-https://api.emarsys.net/api/v3/event/{eventId}/trigger
+https://api.emarsys.net/api/v3/{eventId}/trigger
 (The {eventId} part should be replaced with the actual ID of the event you're triggering.)
 
 Authorization (security key):

@@ -18,7 +18,7 @@ def load_text_from_file(file_path: str) -> str:
         return file.read()
 
 def generate_custom_prompt(file_name) -> str:
-    file1_text = load_text_from_file("/Users/sanjaykukreti/Desktop/zeotap_repo/Hack2025/prompts/channel_info.txt")
+    file1_text = load_text_from_file("/Users/sanjaykukreti/Desktop/zeotap_repo/Hack2025/prompts/test_channel_info.txt")
     file2_text = load_text_from_file(file_name)
 
     # Combine into a prompt
