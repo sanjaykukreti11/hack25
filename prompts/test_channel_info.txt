@@ -1,0 +1,55 @@
+PATCH /workspaces/{workspaceId}/contacts/identifiers/{identifierKey}/{identifierValue} HTTP/1.1
+Host: api.bird.com
+Authorization: Bearer JWT
+Content-Type: application/json
+Accept: */*
+Content-Length: 718
+
+{
+  "attributes": {
+    "firstName": "John",
+    "lastName": "Smith",
+    "rating": 9.6,
+    "cookiesAccepted": false,
+    "labels": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  "addIdentifiers": [
+    {
+      "key": "secondaryEmailAddress",
+      "value": "contacts-secondary@bird.com",
+      "properties": {
+        "countryCode": "US",
+        "isGmail": true
+      }
+    }
+  ],
+  "removeIdentifiers": [
+    {
+      "key": "secondaryEmailAddress",
+      "value": "contacts-secondary@bird.com"
+    }
+  ],
+  "addToLists": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "removeFromLists": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "listIds": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "addToAccounts": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "removeFromAccounts": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "accountIds": [
+    "123e4567-e89b-12d3-a456-426614174000"
+  ],
+  "ANY_ADDITIONAL_PROPERTY": "anything"
+}

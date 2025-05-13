@@ -1,0 +1,107 @@
+You are given documentation or text information about an API. Based on this information, your task is to dynamically generate a configuration JSON following the format below.
+
+The configuration has a static structure in some parts and a dynamic structure in others. Here are the rules you must follow:
+
+✅ Static Fields (Do not change):
+"channelTemplate": {}
+
+"integrationType": "RealTime"
+
+"integrationPartnerMetadata.intId": "3424"
+
+"integrationPartnerMetadata.channelId": "32"
+
+"integrationPartnerMetadata.channelType": 1
+
+"integrationPartnerMetadata.destinationType": "Creation"
+
+"integrationPartnerMetadata.destinationMetaData.clientId" object with:
+
+json
+Copy
+Edit
+{
+  "secret": true,
+  "type": "text",
+  "description": "",
+  "masked": true,
+  "masked_type": "PARTIALLY",
+  "name": "Destination Instance"
+}
+🧠 Dynamic Fields (Extract from API info):
+intPartnerName
+
+Extract the name of the integration partner from the API info (e.g., Emarsys, Salesforce, etc.).
+
+destinationMetaData
+
+For each dynamic parameter needed by the API (e.g., access tokens, event IDs, keys, etc.), create an object with the following structure:
+
+json
+Copy
+Edit
+{
+  "secret": true,
+  "type": "text",
+  "description": "",
+  "masked": true,
+  "masked_type": "PARTIALLY",
+  "name": "<Descriptive Name>"
+}
+The key for each object should be a relevant internal identifier (bearerToken, eventId, etc.).
+
+The name field should be a human-readable version of the key (Bearer Token, Event Id, etc.).
+
+The object clientId must always be included with its static structure (see above).
+
+Do not repeat clientId for dynamic values.
+
+🎯 Example Output Structure:
+json
+Copy
+Edit
+{
+  "channelTemplate": {},
+  "integrationType": "RealTime",
+  "integrationPartnerMetadata": {
+    "intId": "3424",
+    "channelId": "32",
+    "intPartnerName": "Emarsys",
+    "destinationMetaData": {
+      "bearerToken": {
+        "secret": true,
+        "type": "text",
+        "description": "",
+        "masked": true,
+        "masked_type": "PARTIALLY",
+        "name": "Bearer Token"
+      },
+      "clientId": {
+        "secret": true,
+        "type": "text",
+        "description": "",
+        "masked": true,
+        "masked_type": "PARTIALLY",
+        "name": "Destination Instance"
+      },
+      "eventId": {
+        "secret": true,
+        "type": "text",
+        "description": "",
+        "masked": true,
+        "masked_type": "PARTIALLY",
+        "name": "Event Id"
+      }
+    },
+    "channelType": 1,
+    "destinationType": "Creation",
+    "channelDescription": {}
+  }
+}
+Use the API information provided to:
+
+Determine the integration partner name.
+
+Identify the required parameters that should be added under destinationMetaData, and create each one as an object in the specified structure.
+
+Return only the generated configuration JSON.

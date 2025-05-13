@@ -1,0 +1,61 @@
+This request sends information to Emarsys, a marketing platform, to trigger a specific event for one or more contacts.
+
+🔍 Details in Simple Terms:
+URL (where the request goes):
+It sends the information to this web address:
+https://api.emarsys.net/api/v3/event/{eventId}/trigger
+(The {eventId} part should be replaced with the actual ID of the event you're triggering.)
+
+Authorization (security key):
+It uses a secure access key called a Bearer token (in this case, just written as 123, but in practice, it would be a real, long secure token).
+
+Format of the request:
+The request sends and expects JSON data (a structured way to send info like names, times, etc.).
+
+📦 What Information Is Sent:
+key_id: This is a unique key or reference ID for the event.
+
+contacts: A list of people or users for whom this event is being triggered. Each one may have:
+
+attachment: Some extra data related to the contact.
+
+event_time: When the event should be considered to have happened.
+
+trigger_id: An optional ID for the specific trigger.
+
+external_id: An external reference for the user.
+
+✅ What Happens When This Runs:
+Once this command is sent:
+
+Emarsys receives the data.
+
+The event with the given ID is triggered for the listed contacts.
+
+This could result in automated marketing actions like sending an email or starting a campaign flow.
+
+Request body :
+{
+  "attributes": [
+    {
+      "email": "user@example.com",
+      "fname": "John",
+      "lname": "Doe",
+      "dob": "1990-01-01",
+      "preferences": {
+        "contact": {
+          "email": true,
+          "sms": false
+        },
+        "language": "en"
+      },
+      "address": [
+        {
+          "line1": "123 Main St",
+          "city": "Metropolis",
+          "code": 12345 ( MD6 Hashed )
+        }
+      ]
+    }
+  ]
+}

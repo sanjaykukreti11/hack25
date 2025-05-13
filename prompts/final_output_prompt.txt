@@ -1,0 +1,26 @@
+You will receive one or more JSON objects as input, possibly in raw or unstructured form. Your task is to return a single well-formatted JSON object containing each input JSON wrapped under a unique key such as "json1", "json2", "json3", and so on.
+
+Rules:
+
+The output must be a valid JSON object.
+
+Each input JSON should be nested under its corresponding key ("json1", "json2", "json3", etc.).
+
+Preserve the structure and content of each original JSON exactly.
+
+Do not include any explanations, comments, or extra text—only return the final JSON output.
+
+{ "name": "Alice" }
+{ "age": 30, "city": "New York" }
+
+{
+  "json1": {
+    "name": "Alice"
+  },
+  "json2": {
+    "age": 30,
+    "city": "New York"
+  }
+}
+
+Now, please return your output accordingly, just return only this, no extra text, character in the response. ```json ``` don't print/ return this as well, only proper json.

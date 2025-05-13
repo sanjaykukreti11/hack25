@@ -1,0 +1,23 @@
+Imagine a company is using a marketing tool called Emarsys to communicate with its customers — for example, to send emails when certain things happen, like someone signing up or making a purchase.
+
+Now, someone (probably a developer or marketing automation specialist) wants to manually trigger one of these events — say, a welcome email — for specific people. To do that, they send a message to Emarsys, telling it:
+
+"Hey, please trigger this specific event (called {eventId}) right now for these contacts."
+
+They include some extra details with this request:
+
+A special key (key_id) that helps Emarsys know what kind of event this is.
+
+A list of contacts — the people who should receive the message.
+
+For each contact, they can include extra details, like:
+
+An attachment (extra info related to the event),
+
+A specific time the event is tied to,
+
+A trigger ID and external ID to track the event properly.
+
+Also, to make sure this request is allowed (and secure), they include a secret access token (like a password), so Emarsys knows it's coming from someone who has permission.
+
+Once this message is sent, Emarsys acts on it — sending out the email or triggering whatever action is tied to that event, using the information provided.

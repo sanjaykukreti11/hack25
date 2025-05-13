@@ -1,0 +1,62 @@
+You are given the task of generating a configuration JSON used to map attributes from an API request to a UI-based mapping system. The final config should adhere to a specific schema and include both static and dynamically generated fields. Use the provided API information (including request body and purpose) to complete the config as described below.
+
+Static Fields (Always the same)
+
+"intPartnerId": 6878,
+"actionType": "marTech",
+"productType": ["symphony_v2"],
+"fileType": "json",
+"isDefault": false,
+"shouldAllowComplexMapping": true,
+"actionMetadata": { "description": "" },
+"mappingMetadata" : {
+  "enableEnrichers": true,
+  "enableCustomSourceField": true,
+  "mappingCategoryMetadata" : [{
+                                "category": "attributes",
+                                "displayName": "Attributes",
+                                "allowCustomAttribute": true,
+                                "structureType": { "attributes": "Object" },
+                                "skipCategoryNamePrefix": false
+                              }]
+},
+"customFields": {
+  "isDeltaEnabled": false,
+  "transformationAtDE": false,
+  "fullRefreshTTL": 10000
+}
+
+
+Dynamic Fields
+"actionName": Generate this based on the API description or functionality. It should summarize what the API does, e.g., "Send Attributes to Emarsys".
+
+under mappingMetadata object, mappingDetails : This should be generated from the structure of the API request body. Each top-level or nested key should be represented as an individual mapping object with the following structure:
+
+{
+  "name": "path.to.attribute which have premitive datatype" // in the path, don't add [], or index
+  "displayName": "Meaningful Label",
+  "category": "attributes",
+  "dataType": "string | integer | boolean | list | object | objectlist",  // Determine based on value type
+  "inputType": "multiSelectDropdown",
+  "type": "attribute",
+  "mandatory": false,
+  "highlightDataTypeMismatchForListType": true,
+  "structureType": {
+    "path": "type",  // each name from the path, and its datatype, if is is list of object then objectlist, if object then object, if array then list, for rest the premitive datatype.
+  },
+  "zeotapMappedAttribute": []
+}
+
+
+Instructions
+Use the API request body to extract all attributes. For nested attributes, construct the full name path using dot notation.
+
+Infer the correct dataType from the request structure.
+
+Generate meaningful displayName values from attribute names (e.g., fname → First Name).
+
+Maintain the required structure for every field.
+
+Do not modify static fields.
+
+Return only the generated configuration JSON.

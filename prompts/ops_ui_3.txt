@@ -1,0 +1,53 @@
+Generate a configuration JSON with the following structure and rules:
+
+{
+  "intId": 9090,
+  "configMap": {
+    "RealTimeTransform": {
+      "channelFieldTransformations": {},
+      "requestTemplate": {}
+    },
+    "RealTimeUpload": {
+      "uploadType": "API",
+      "uploadFormat": {
+        "apiDetails": {
+          "uploadUrl": "https://api.emarsys.net/api/v3/event/${eventId}/trigger",
+          "apiType": "POST",
+          "headers": {
+            "Auth": "${bearerToken}"
+          }
+        },
+        "requestBody": {
+          "requestBody": {},
+          "requestBodyType": "JSON"
+        },
+        "authDetails": {
+          "authType": "Basic",
+          "authData": {
+            "username": "${clientId}",
+            "password": "${eventId}"
+          }
+        }
+      }
+    }
+  },
+  "steps": {
+    "RealTimeUpload": ["RealTimeTransform", "RealTimeUpload"]
+  },
+  "actionId": 421
+}
+
+Requirements:
+
+- intId, actionId, and steps fields are static.
+- RealTimeUpload config is fixed as shown above.
+- In RealTimeTransform:
+  - requestTemplate is an empty object
+  - channelFieldTransformations must be generated using attributes from the request body
+- For each transformable attribute ( you have to figure out which attribute need transformation):
+  - Use full path like "attributes.email"
+  - The value must be a list of transformation objects:
+    - "type": "HASHING"
+    - "name": one of: "SHA256", "MD5", or "MD6"
+
+Return only the generated JSON config.
