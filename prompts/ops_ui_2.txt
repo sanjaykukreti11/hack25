@@ -2,7 +2,7 @@ You are given the task of generating a configuration JSON used to map attributes
 
 Static Fields (Always the same)
 
-"intPartnerId": 6878,
+"intPartnerId": 6878 ( note if you find intPartnerId, use that one only, not use static )
 "actionType": "marTech",
 "productType": ["symphony_v2"],
 "fileType": "json",

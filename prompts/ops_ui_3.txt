@@ -4,7 +4,18 @@ Generate a configuration JSON with the following structure and rules:
   "intId": 9090,
   "configMap": {
     "RealTimeTransform": {
-      "channelFieldTransformations": {},
+      "channelFieldTransformations": [
+                                                     {
+                                                         "Attribute": "abc",
+                                                         "Transform Type": "CASE_CHANGE",
+                                                         "Transform Name": "LOWER"
+                                                     },
+                                                     {
+                                                         "Attribute": "abc",
+                                                         "Transform Type": "HASHING",
+                                                         "Transform Name": "MD2"
+                                                     }
+                                                 ],
       "requestTemplate": {}
     },
     "RealTimeUpload": {
@@ -43,14 +54,14 @@ Generate a configuration JSON with the following structure and rules:
 
 Requirements:
 Static Fields
-"intId", "actionId", and "steps" must always retain their values as shown.
+"intId" ( but if you find intPartnerId somewhere use that as intId not static ), "actionId" ( if you find actionId somewhere use that not static ) , and "steps" must always retain their values as shown.
 
 The full structure under "RealTimeUpload" is mostly fixed in shape.
 
 RealTimeTransform Rules
 "requestTemplate" remains an empty object: {}.
 
-"channelFieldTransformations" is to be generated dynamically from the attributes present in the request body (i.e., uploadFormat.requestBody.requestBody).
+"channelFieldTransformations" is to be generated dynamically from the attributes present in the request body of the channel api information, you have to figure out what transformation that attribute need.
 
 For each attribute that requires transformation:
 
@@ -60,8 +71,9 @@ The value should be a list of transformation objects:
 
 [
   {
-    "type": "HASHING",
-    "name": "SHA256" | "MD5" | "MD6"
+    "Attribute" : "path.to.attribute which have premitive datatype" // in the path, don't add [], or index
+    "Transform Type": "HASHING",
+    "Transform Name": "SHA256" | "MD5" | "MD6"
   }
 ]
 

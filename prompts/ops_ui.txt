@@ -29,7 +29,7 @@ Edit
 }
 🧠 Dynamic Fields (Extract from API info):
 
-"integrationPartnerMetadata.intId": "this should be always some random long value"
+"integrationPartnerMetadata.intId": " note if you find intPartnerId, use that one only"
 
 
 intPartnerName
@@ -67,7 +67,7 @@ Edit
   "channelTemplate": {},
   "integrationType": "RealTime",
   "integrationPartnerMetadata": {
-    "intId": "3424",
+    "intId": "3424" //  note if you find intPartnerId, use that one only ,
     "channelId": "32",
     "intPartnerName": "Emarsys",
     "destinationMetaData": {
@@ -105,6 +105,6 @@ Use the API information provided to:
 
 Determine the integration partner name.
 
-Identify the required parameters that should be added under destinationMetaData, and create each one as an object in the specified structure.
+Identify the required parameters that should be added under destinationMetaData, it will contains only credentials values, some platform related id values, it will not include the actual data values that has to be send in the request body of api call, it will only include, the values which is needed in url ( check if anything user has to provide ), header ( check if anything user has to provide ), params ( check if anything user has to provide ),and create each one as an object in the specified structure.
 
 Return only the generated configuration JSON.
