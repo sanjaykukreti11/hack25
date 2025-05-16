@@ -1,0 +1,2522 @@
+# List
+List message examples shown for each supported platform
+All examples below must be sent within the **body** field of a message as shown below
+Copy
+    
+    {
+     "receiver": {
+       "contacts": [
+         {
+           "identifierValue": "+31612345678"
+         }
+       ]
+     },
+     "body": {...}
+    }
+## 
+List message without sections
+#### 
+Body
+Copy
+    
+    {
+      "type": "list",
+      "list": {
+        "items": [
+          {
+            "actions": [
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-1",
+                  "text": "Postback action 1"
+                }
+              },
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-2",
+                  "text": "Postback action 2"
+                }
+              }
+            ]
+          }
+        ],
+        "title": "List title",
+        "altText": "List alt text",
+        "text": "List text"
+      }
+    }
+#### 
+WhatsApp
+#### 
+Facebook
+#### 
+Instagram
+#### 
+Line
+## 
+List message with sections
+#### 
+Body
+Copy
+    
+    {
+      "type": "list",
+      "list": {
+        "items": [
+          {
+          "title": "Section 1",
+            "actions": [
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-1",
+                  "text": "Postback action 1"
+                }
+              },
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-2",
+                  "text": "Postback action 2"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Section 2",
+            "actions": [
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-3",
+                  "text": "Postback action 3"
+                }
+              },
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-4",
+                  "text": "Postback action 4"
+                }
+              }
+            ]
+          }
+        ],
+        "title": "List title",
+        "altText": "List alt text",
+        "text": "List text"
+      }
+    }
+#### 
+WhatsApp
+#### 
+Facebook
+#### 
+Instagram 
+## 
+List message with metadata
+#### 
+Body
+Copy
+    
+    {
+      "type": "list",
+      "list": {
+        "items": [
+          {
+            "title": "Section 1",
+            "actions": [
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-1",
+                  "text": "Postback action 1",
+                  "metadata": {
+                    "description": {
+                      "label": "Postback action description 1"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-2",
+                  "text": "Postback action 2",
+                  "metadata": {
+                    "description": {
+                      "label": "Postback action description 2"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "title": "Section 2",
+            "actions": [
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-3",
+                  "text": "Postback action 3",
+                  "metadata": {
+                    "description": {
+                      "label": "Postback action description 3"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "postback",
+                "postback": {
+                  "payload": "postback-action-payload-4",
+                  "text": "Postback action 4",
+                  "metadata": {
+                    "description": {
+                      "label": "Postback action description 4"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "title": "List title",
+        "altText": "List alt text",
+        "text": "List text",
+        "metadata": {
+          "button": {
+            "label": "Show options"
+          }
+        }
+      }
+    }
+#### 
+WhatsApp
+#### 
+Facebook
+#### 
+Instagram
+Last updated 9 months ago
+Was this helpful?
+# Import
+Import new knowledge base documents
+### 
+Import new Knowledge base documents.
+post
+/workspaces/{workspaceId}/content/folders/{contentPath}/import
+Import one or multiple new documents
+Path parameters
+workspaceIdstringRequired
+contentPathstringRequired
+Body
+filestring · binaryRequired
+Responses
+
+Documents uploaded
+application/json
+Responseobject · ImportKnowledgeBaseDocumentsResponse
+Show properties
+
+Not found
+application/json
+
+Conflict
+application/json
+
+Validation error
+application/json
+post
+/workspaces/{workspaceId}/content/folders/{contentPath}/import
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /workspaces/{workspaceId}/content/folders/{contentPath}/import HTTP/1.1
+    Host: 
+    Content-Type: multipart/form-data
+    Accept: */*
+    Content-Length: 17
+    
+    {
+      "file": "binary"
+    }
+Test it
+
+Documents uploaded
+Copy
+    
+    {
+      "createdDocumentPaths": [
+        "text"
+      ],
+      "updatedDocumentPaths": [
+        "text"
+      ]
+    }
+Last updated 11 months ago
+Was this helpful?
+# Organizations
+### 
+Create Organization
+post
+/organizations
+Create a new organization for the current user.
+Authorizations
+Body
+namestring · min: 1 · max: 256Required
+Organization's display name.
+slugstring · min: 1 · max: 253Required
+Organization's human-readable identifier.
+Pattern: `^[a-zA-Z0-9-]+$`
+countryCodestring · iso3166-1Required
+The country in which the organization operates.
+Responses
+
+Created
+application/json
+Responseobject · Organization
+The organization record
+Show properties
+
+The resource already exists
+application/json
+
+Request validation failed
+application/json
+post
+/organizations
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /organizations HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 50
+    
+    {
+      "name": "text",
+      "slug": "text",
+      "countryCode": "text"
+    }
+Test it
+
+Created
+Copy
+    
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "text",
+      "slug": "text",
+      "avatarUrl": "text",
+      "status": "active",
+      "statusReason": "text",
+      "pendingMemberCount": 1,
+      "activeMemberCount": 1,
+      "owner": "123e4567-e89b-12d3-a456-426614174000",
+      "createdAt": "2025-05-14T12:39:45.495Z",
+      "updatedAt": "2025-05-14T12:39:45.495Z",
+      "managedBy": [
+        {
+          "Type": "text",
+          "ID": "text"
+        }
+      ]
+    }
+### 
+Get Organization
+get
+/organizations/{organizationId}
+Get an organization by its ID.
+Authorizations
+Path parameters
+organizationIdstringRequired
+The organization ID
+Responses
+
+OK
+application/json
+Responseobject · Organization
+The organization record
+Show properties
+
+Resource not found
+application/json
+get
+/organizations/{organizationId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /organizations/{organizationId} HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "text",
+      "slug": "text",
+      "avatarUrl": "text",
+      "status": "active",
+      "statusReason": "text",
+      "pendingMemberCount": 1,
+      "activeMemberCount": 1,
+      "owner": "123e4567-e89b-12d3-a456-426614174000",
+      "createdAt": "2025-05-14T12:39:45.495Z",
+      "updatedAt": "2025-05-14T12:39:45.495Z",
+      "managedBy": [
+        {
+          "Type": "text",
+          "ID": "text"
+        }
+      ]
+    }
+### 
+Update Organization
+patch
+/organizations/{organizationId}
+Update an organization's properties.
+Authorizations
+Path parameters
+organizationIdstringRequired
+The organization ID
+Body
+namestring · min: 1 · max: 256Optional
+Organization's display name.
+avatarUrlstringOptional
+The url of the avatar displayed next to the org
+statusstring · enum | nullableOptionalPossible values: `banned``active`
+statusReasonstring | nullableOptional
+The reason for the organization's status
+ownerstring · uuidOptional
+The organization's owner's ID
+Responses
+
+OK
+application/json
+Responseobject · Organization
+The organization record
+Show properties
+
+Forbidden operation
+application/json
+
+Resource not found
+application/json
+
+Request validation failed
+application/json
+patch
+/organizations/{organizationId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    PATCH /organizations/{organizationId} HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 121
+    
+    {
+      "name": "text",
+      "avatarUrl": "text",
+      "status": "banned",
+      "statusReason": "text",
+      "owner": "123e4567-e89b-12d3-a456-426614174000"
+    }
+Test it
+
+OK
+Copy
+    
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "text",
+      "slug": "text",
+      "avatarUrl": "text",
+      "status": "active",
+      "statusReason": "text",
+      "pendingMemberCount": 1,
+      "activeMemberCount": 1,
+      "owner": "123e4567-e89b-12d3-a456-426614174000",
+      "createdAt": "2025-05-14T12:39:45.495Z",
+      "updatedAt": "2025-05-14T12:39:45.495Z",
+      "managedBy": [
+        {
+          "Type": "text",
+          "ID": "text"
+        }
+      ]
+    }
+Last updated 8 months ago
+Was this helpful?
+# Delete a Transcription
+In order to delete a transcription, you must use the following endpoint.
+### 
+Delete transcription
+delete
+/workspaces/{workspaceId}/transcriptions/{transcriptionId}
+Authorizations
+user
+useraccessKey
+Path parameters
+workspaceIdstringRequired
+transcriptionIdstringRequired
+Query parameters
+formatstring · enumOptionalPossible values: `json``vtt``txt``srt`
+Responses
+
+Deleted
+
+Not found
+application/json
+delete
+/workspaces/{workspaceId}/transcriptions/{transcriptionId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    DELETE /workspaces/{workspaceId}/transcriptions/{transcriptionId} HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+Deleted
+    
+    No content
+Request
+Copy
+    
+    curl  -X "DELETE" "https://nest.messagebird.one/workspaces/8bc02f53-87ac-48d2-b4fd-c2cf856a305f/transcriptions/7f1e9ce1-95db-4a39-80f4-9bde69908c53" \
+         -H 'Authorization: Bearer {Token}'
+Last updated 1 year ago
+Was this helpful?
+# Add allow/block rules in bulk
+### 
+Add allow/block rules to bulk process via a csv file.
+post
+https://api.bird.com/workspaces/{workspaceId}/conversation-allowblock-rules-bulk
+Add allow/block to bulk process via a csv file.
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstring · uuidRequired
+The workspace ID
+Example: `b4e02c85-c6d2-4b15-8885-e09671799c61`
+Body
+stringOptional
+Responses
+
+The Allow/Block rule bulk insert progress.
+application/json
+Responseobject
+Show properties
+
+Bad request
+application/json
+post
+/workspaces/{workspaceId}/conversation-allowblock-rules-bulk
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /workspaces/{workspaceId}/conversation-allowblock-rules-bulk HTTP/1.1
+    Host: api.bird.com
+    Authorization: Bearer JWT
+    Content-Type: text/csv
+    Accept: */*
+    Content-Length: 6
+    
+    "text"
+Test it
+
+The Allow/Block rule bulk insert progress.
+Copy
+    
+    {
+      "workspaceId": "123e4567-e89b-12d3-a456-426614174000",
+      "bulkId": "123e4567-e89b-12d3-a456-426614174000",
+      "currentIndex": 1,
+      "total": 1,
+      "status": "pending",
+      "errors": [
+        "text"
+      ],
+      "updatedAt": "2025-05-14T13:23:11.106Z"
+    }
+## 
+Examples
+Request
+Response (202 - Accepted)
+Copy
+    
+    curl -X POST "https://api.bird.com/workspaces/a1405560-c8d3-4b1a-877d-3f449ad95352/conversation-allowblock-rules-bulk" \
+    -H "Content-Type: text/csv" \
+    -H "Authorization: AccessKey abcd" \
+    -d 'test@example.com,allow'
+Copy
+    
+    {
+      "workspaceId": "6b1908bd-2bc7-409e-bab4-ccfcd3ec69b9",
+      "bulkId": "875cd425-d62d-4d16-b3af-61dafe71ea2d",
+      "currentIndex": 0,
+      "total": 1,
+      "status": "pending",
+      "errors": null,
+      "updatedAt": "2024-11-29T15:45:56.780546536Z"
+    }
+Last updated 5 months ago
+Was this helpful?
+# Profile
+### 
+Get business profile
+get
+/organizations/{organizationId}/profile
+Authorizations
+Path parameters
+organizationIdstringRequired
+The organization ID
+Responses
+
+OK
+application/json
+Responseobject · BusinessProfile
+Show properties
+
+Resource not found
+application/json
+get
+/organizations/{organizationId}/profile
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /organizations/{organizationId}/profile HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "name": "text",
+      "legalName": "text",
+      "type": "unknown",
+      "domain": "example.com",
+      "domainAliases": [
+        "example.com"
+      ],
+      "category": {
+        "sector": "text",
+        "industryGroup": "text",
+        "industry": "text",
+        "subIndustry": "text",
+        "sicCode": "text",
+        "naicsCode": "text"
+      },
+      "identifiers": {
+        "ANY_ADDITIONAL_PROPERTY": "text"
+      },
+      "tags": [
+        "text"
+      ],
+      "description": "text",
+      "foundedYear": 1,
+      "location": "text",
+      "geo": {
+        "streetNumber": "text",
+        "streetName": "text",
+        "subPremise": "text",
+        "city": "text",
+        "postalCode": "text",
+        "state": "text",
+        "stateCode": "text",
+        "country": "text",
+        "countryCode": "text",
+        "lat": 1,
+        "lng": 1
+      },
+      "logoUrl": "text",
+      "facebook": {
+        "handle": "text"
+      },
+      "linkedin": {
+        "handle": "text"
+      },
+      "twitter": {
+        "handle": "text",
+        "id": "text",
+        "bio": "text",
+        "followers": 1,
+        "following": 1,
+        "location": "text",
+        "site": "text",
+        "avatar": "text"
+      },
+      "crunchbase": {
+        "handle": "text"
+      },
+      "phone": "text",
+      "vatNumber": "text",
+      "invoicingContactEmail": "text",
+      "significantContacts": {
+        "contacts": [
+          {
+            "name": "text",
+            "email": "text",
+            "contactCategories": [
+              "text"
+            ],
+            "phone": "text"
+          }
+        ],
+        "predefinedContactCategories": [
+          "text"
+        ]
+      }
+    }
+### 
+Update business profile
+patch
+/organizations/{organizationId}/profile
+Authorizations
+Path parameters
+organizationIdstringRequired
+The organization ID
+Body
+namestring · max: 256Optional
+The name under which this business is commonly referred to.
+legalNamestring · max: 256Optional
+The name under which this business is registered.
+typestring · enumOptional
+The business type.
+Default: `unknown`Possible values: `unknown``public``private``personal``education``government``nonprofit`
+domainstring · max: 253Optional
+Domain name.
+Example: `example.com`Pattern: `^$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)+([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$`
+domainAliasesstring[] · max: 20Optional
+The other domains that are associated with this business.
+Example: `example.com`
+categoryobject · BusinessCategoryOptional
+Show properties
+identifiersobject · BusinessIdentifiersOptional
+Show properties
+tagsstring[] · max: 20Optional
+descriptionstring · max: 256Optional
+foundedYearinteger · int32Optional
+locationstring · max: 1000Optional
+The address where this business is located.
+geoobject · BusinessLocationOptional
+Detailed location of company headquarters.
+Show properties
+logoUrlstringOptionalPattern: `^|https://`
+facebookobject · FacebookProfileOptional
+Show properties
+linkedinobject · LinkedInProfileOptional
+Show properties
+twitterobject · TwitterProfileOptional
+Show properties
+crunchbaseobject · CrunchbaseProfileOptional
+Show properties
+phonestring · max: 24Optional
+vatNumberstringOptional
+invoicingContactEmailstringOptional
+significantContactsobject · SignificantContactsOptional
+Show properties
+Responses
+
+OK
+application/json
+Responseobject · BusinessProfile
+Show properties
+
+Resource not found
+application/json
+
+Request validation failed
+application/json
+patch
+/organizations/{organizationId}/profile
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    PATCH /organizations/{organizationId}/profile HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 996
+    
+    {
+      "name": "text",
+      "legalName": "text",
+      "type": "unknown",
+      "domain": "example.com",
+      "domainAliases": [
+        "example.com"
+      ],
+      "category": {
+        "sector": "text",
+        "industryGroup": "text",
+        "industry": "text",
+        "subIndustry": "text",
+        "sicCode": "text",
+        "naicsCode": "text"
+      },
+      "identifiers": {
+        "ANY_ADDITIONAL_PROPERTY": "text"
+      },
+      "tags": [
+        "text"
+      ],
+      "description": "text",
+      "foundedYear": 1,
+      "location": "text",
+      "geo": {
+        "streetNumber": "text",
+        "streetName": "text",
+        "subPremise": "text",
+        "city": "text",
+        "postalCode": "text",
+        "state": "text",
+        "stateCode": "text",
+        "country": "text",
+        "countryCode": "text",
+        "lat": 1,
+        "lng": 1
+      },
+      "logoUrl": "text",
+      "facebook": {
+        "handle": "text"
+      },
+      "linkedin": {
+        "handle": "text"
+      },
+      "twitter": {
+        "handle": "text",
+        "id": "text",
+        "bio": "text",
+        "followers": 1,
+        "following": 1,
+        "location": "text",
+        "site": "text",
+        "avatar": "text"
+      },
+      "crunchbase": {
+        "handle": "text"
+      },
+      "phone": "text",
+      "vatNumber": "text",
+      "invoicingContactEmail": "text",
+      "significantContacts": {
+        "contacts": [
+          {
+            "name": "text",
+            "email": "text",
+            "contactCategories": [
+              "text"
+            ],
+            "phone": "text"
+          }
+        ],
+        "predefinedContactCategories": [
+          "text"
+        ]
+      }
+    }
+Test it
+
+OK
+Copy
+    
+    {
+      "name": "text",
+      "legalName": "text",
+      "type": "unknown",
+      "domain": "example.com",
+      "domainAliases": [
+        "example.com"
+      ],
+      "category": {
+        "sector": "text",
+        "industryGroup": "text",
+        "industry": "text",
+        "subIndustry": "text",
+        "sicCode": "text",
+        "naicsCode": "text"
+      },
+      "identifiers": {
+        "ANY_ADDITIONAL_PROPERTY": "text"
+      },
+      "tags": [
+        "text"
+      ],
+      "description": "text",
+      "foundedYear": 1,
+      "location": "text",
+      "geo": {
+        "streetNumber": "text",
+        "streetName": "text",
+        "subPremise": "text",
+        "city": "text",
+        "postalCode": "text",
+        "state": "text",
+        "stateCode": "text",
+        "country": "text",
+        "countryCode": "text",
+        "lat": 1,
+        "lng": 1
+      },
+      "logoUrl": "text",
+      "facebook": {
+        "handle": "text"
+      },
+      "linkedin": {
+        "handle": "text"
+      },
+      "twitter": {
+        "handle": "text",
+        "id": "text",
+        "bio": "text",
+        "followers": 1,
+        "following": 1,
+        "location": "text",
+        "site": "text",
+        "avatar": "text"
+      },
+      "crunchbase": {
+        "handle": "text"
+      },
+      "phone": "text",
+      "vatNumber": "text",
+      "invoicingContactEmail": "text",
+      "significantContacts": {
+        "contacts": [
+          {
+            "name": "text",
+            "email": "text",
+            "contactCategories": [
+              "text"
+            ],
+            "phone": "text"
+          }
+        ],
+        "predefinedContactCategories": [
+          "text"
+        ]
+      }
+    }
+Last updated 2 years ago
+Was this helpful?
+# Message status
+In this section, you can find more details about the message statuses that apply to the the email channel in the Channels API
+Copy
+    
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "channelId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "sender": {
+        "connector": {
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "identifierValue": "string",
+          "annotations": {
+            "name": "string"
+          }
+        }
+      },
+      "body": {
+        "type": "text"
+      },
+      "reference": "string",
+      "parts": [
+        {
+          "platformReference": "string"
+        }
+      ],
+      "status": "accepted",
+      "reason": "string",
+      "direction": "incoming",
+      "template": {
+        "projectId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "version": "string",
+        "locale": "string",
+        "variables": {
+          "default": "string",
+          "additionalProp1": "string",
+          "additionalProp2": "string",
+          "additionalProp3": "string"
+        }
+      },
+      "lastStatusAt": "2023-06-23T15:51:19.660Z",
+      "createdAt": "2023-06-23T15:51:19.660Z",
+      "updatedAt": "2023-06-23T15:51:19.660Z",
+      "details": "string"
+    }
+Email supports the following [message statuses](</api/channels-api/message-status-and-interactions#message-lifecycle-events>)
+Status
+Description
+accepted
+An outgoing message has been accepted by the Channels API
+sent
+Channels API has attempted to send an outgoing message to a platform e.g Email
+sending_failed
+An outgoing message has failed to be sent to a platform
+delivery_failed
+An outgoing message has been sent successfully to a platform but the message has failed to be delivered to a recipient 
+delivered
+An outgoing message has been successfully delivered to a recipient or an incoming message has been delivered to the channels API. Use the `direction` field to determine if a message is `outgoing` or `incoming`
+Additional information for sending or delivery failure can be found in the `details` and where applicable a `reason` will be set to provide more troubleshooting information:
+Status
+details
+Description
+sending_failed
+generationRejection
+Message generation failed due to policy
+sending_failed
+generationFailure
+Message generation failed for an intended recipient 
+sending_failed
+policyRejection
+Message rejected due to policy
+delivery_failed
+bounceHard
+The recipient is invalid or could not be determined
+delivery_failed
+bounceSoft
+The message has been temporarily delayed or failed for unspecified reasons
+delivery_failed
+bounceBlock
+The message has been blocked by the receiver
+delivery_failed
+bounceAdmin
+The message was failed by an configured policy
+delivery_failed
+bounceUndetermined
+The response text could not be determined
+delivery_failed
+delay
+Remote MTA has temporarily rejected the message
+delivery_failed
+out_of_band
+Remote MTA initially reported acceptance of the message, but it has since reported that the message was not delivered
+Last updated 1 year ago
+Was this helpful?
+# Text
+Text message examples shown for each supported platform
+All examples below must be sent within the **body** field of a message as shown below
+Copy
+    
+    {
+     "receiver": {
+       "contacts": [
+         {
+           "identifierValue": "+31612345678"
+         }
+       ]
+     },
+     "body": {...}
+    }
+## 
+Single text message
+#### 
+Message Body
+Copy
+    
+    {
+      "type": "text",
+      "text": {
+        "text": "Single text message"
+      }
+    }
+#### 
+SMS
+#### 
+WhatsApp
+#### 
+Google RCS
+Facebook
+#### 
+Instagram
+#### 
+Line
+## 
+Single text message with actions
+### 
+Single text message with reply actions
+#### 
+Message Body
+Copy
+    
+    {
+      "type": "text",
+      "text": {
+        "text": "Single text message with reply actions",
+        "actions": [
+          {
+            "type": "reply",
+            "reply": {
+              "text": "Reply action 1"
+            }
+          },
+          {
+            "type": "reply",
+            "reply": {
+              "text": "Reply action 2"
+            }
+          }
+        ]
+      }
+    }
+#### 
+WhatsApp
+#### 
+Google RCS
+#### 
+Facebook
+#### 
+Instagram
+#### 
+Line
+### 
+Single text message with postback actions
+#### 
+Message Body
+Copy
+    
+    {
+      "type": "text",
+      "text": {
+        "text": "Single text message with postback actions",
+        "actions": [
+          {
+            "type": "postback",
+            "postback": {
+              "text": "Postback action 1",
+              "payload": "postback-payload-1"
+            }
+          },
+          {
+            "type": "postback",
+            "postback": {
+              "text": "Postback action 2",
+              "payload": "postback-payload-2"
+            }
+          }
+        ]
+      }
+    }
+#### 
+WhatsApp
+#### 
+Google RCS
+#### 
+Facebook
+#### 
+Instagram
+#### 
+Line
+### 
+Single text message with postback and reply actions
+#### 
+Message Body
+Copy
+    
+    {
+      "type": "text",
+      "text": {
+        "text": "Single text message with reply and postback actions",
+        "actions": [
+          {
+            "type": "postback",
+            "postback": {
+              "text": "Postback action 1",
+              "payload": "postback-payload-1"
+            }
+          },
+          {
+            "type": "reply",
+            "reply": {
+              "text": "Reply action 1"
+            }
+          }
+        ]
+      }
+    }
+#### 
+WhatsApp
+#### 
+Google RCS
+#### 
+Facebook
+#### 
+Instagram
+#### 
+Line
+Last updated 9 months ago
+Was this helpful?
+Last updated Mar 6, 2025
+# Custom Audience Import API
+Our data management platform provides the ability for Rokt to receive custom audience data at any frequency you prefer. If you’re working with Rokt as an advertiser, these lists can be used in your campaigns to either target or suppress certain customers from seeing your offers. If you’re working with Rokt as a partner, these lists can be used to determine which customers see the Rokt experience on your site.
+A common method of delivering custom audience data to Rokt is through the use of an API.
+We recommend batching your requests before sending them to Rokt. You can do this multiple times in a single day (or at any frequency you prefer).
+## Endpoint​
+Endpoint URL| `https://data.rokt.com/v3/import/suppression`  
+---|---  
+The API accepts a JSON payload. You must set the `Content-Type` header to `application/json`.
+## Authentication​
+ _**Note: Currently in Public Beta**_
+Reach out to your Rokt account manager to create a public and secret key pair for the accounts that you would like to submit conversion events. These keys you receive will be:
+Name| Value  
+---|---  
+Rokt Public Key| rpub-*****-*****  
+Rokt Secret Key| rsec-*****-*****  
+This should be used as the username and password using [Basic HTTP Auth](<https://en.wikipedia.org/wiki/Basic_access_authentication>) - which is the string "Basic " + base64 encoded string of `rpub-*:rsec-*`.
+## Request Body​
+Exactly one of the following keys must be present in the request body.
+If using hashed email, ensure that you first remove any whitespace and lowercase the email address before hashing.
+Parameter| Description  
+---|---  
+email| A single email address  
+emails| An array of email address  
+sha256| A single SHA-256 hashed email  
+sha256s| An array of SHA-256 hashed emails  
+Additional parameters include:
+Parameter| Type| Description| Example  
+---|---|---|---  
+accountId| Required| Rokt Account ID as seen in OnePlatform.| 123456789  
+action| Required| Use _include_ if you want to add someone to the specified list which could then be used for either targeting or suppression.  
+Use _exclude_ if you want to remove someone from the specified list.| include  
+exclude  
+list| Optional| The name of the custom audience list to use.  
+If no list value is provided, the email addresses will be imported into the AdvertiserDatabase list by default.| US_Customers  
+## Limits​
+Type| Limit  
+---|---  
+Request size| 100,000 emails per 1 request.  
+Rate limit| 4 per second.  
+Concurrency limit| 4  
+note
+The limits above are recommended for this API. Larger amounts _may_ be successful, however are not recommended.
+## Response handling​
+HTTP status code| Body| Description  
+---|---|---  
+201| Created| The email(s) were successfully added to or removed from the custom audience list.  
+400| Bad Request| You receive a 400 Bad Request if there are missing required fields, or your request is sent in the wrong format.  
+## Command Line Examples​
+On a Linux or Mac OS X system with the curl command installed, the following command performs an import of the email addresses `alice@example.com` and `bob@example.com`, assuming that the `API_KEY` environment variable is set to your API key:
+**cURL**
+    
+     curl -X POST https://data.rokt.com/v3/import/suppression \  
+        --user "rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \  
+        --header "Content-Type: application/json" \  
+        --data '{"accountId": "REPLACE_ME", "emails":["alice@example.com","bob@example.com"],"action":"include"}'  
+    
+The following command would import the single SHA256 hash "1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206" into a custom audience list called US_Customers. This string is the SHA256 hash of `hello@example.com` (since we expect hashes to be of lowercase email addresses, this is the hash we would look for to determine whether the email address `HELLO@EXAMPLE.COM` is in the custom audience list):
+**cURL**
+    
+     curl -X POST https://data.rokt.com/v3/import/suppression \  
+        --user "rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \  
+        --header "Content-Type: application/json" \  
+        --data '{"accountId": "REPLACE_ME", "list":"US_Customers","sha256":"1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206","action":"exclude"}'  
+    
+## Authentication (Legacy)​
+The API expects an authorization header as part of the request. This is to ensure that you have the right permissions to send data to your account in the Rokt platform. The authorization header value should be your account's unqiue API key. Reach out to your account manager to obtain this value if still using the legacy API.
+note
+Only for existing users and users onboarding to specific Customer Data Platforms (CDPs) (namely Hightouch and mParticle). New users of the custom audience API and all other integrations should use latest endpoint for a simpler authentication experience.
+## Endpoint (Legacy)​
+Endpoint URL| `https://data.rokt.com/api/1.0/import/suppression`  
+---|---  
+The API accepts a JSON payload. You must set the `Content-Type` header to `application/json`. The request body, API limits and response handling are exactly the same as `POST /v3/import/suppression` API.
+## Command Line Examples (Legacy)​
+On a Linux or Mac OS X system with the curl command installed, the following command performs an import of the email addresses `alice@example.com` and `bob@example.com`, assuming that the `API_KEY` environment variable is set to your API key:
+**cURL**
+    
+     curl -X POST https://data.rokt.com/api/1.0/import/suppression \  
+        --header "Authorization: $API_KEY" \  
+        --header "Content-Type: application/json" \  
+        --data '{"emails":["alice@example.com","bob@example.com"],"action":"include"}'  
+    
+The following command would import the single SHA256 hash "1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206" into a custom audience list called US_Customers. This string is the SHA256 hash of `hello@example.com` (since we expect hashes to be of lowercase email addresses, this is the hash we would look for to determine whether the email address `HELLO@EXAMPLE.COM` is in the custom audience list):
+**cURL**
+    
+     curl -X POST https://data.rokt.com/api/1.0/import/suppression \  
+        --header "Authorization: $API_KEY" \  
+        --header "Content-Type: application/json" \  
+        --data '{"list":"US_Customers","sha256":"1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206","action":"exclude"}'  
+    
+## Testing​
+Note that the above examples point to our live production system. So if you test with email addresses like `alice@example.com` then, in addition to your real customers, we would consider `alice@example.com` to be a member of your custom audience list in Rokt. If you use this list for exclusion targeting, for example, we would not show the Rokt widget to anyone who entered `alice@example.com` as their email address.
+# Message interactions
+You can list message interactions on a specific message using the following endpoint. In order to get an Email message, you must have an active Email channel and perform a HTTP request with a [valid access key](</api/api-access/api-authorization>)
+### 
+List message interactions
+get
+/workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions
+List message interactions
+Authorizations
+user
+useraccessKey
+Path parameters
+workspaceIdstring · uuidRequired
+The ID of the workspace
+messageIdstring · uuidRequired
+The ID for a message
+channelIdstring · uuidRequired
+The ID for a channel
+Responses
+
+OK
+application/json
+Responseobject · ChannelMessageInteractionsList
+A list of channel messages interactions
+Show properties
+
+The request did not pass validation
+application/json
+get
+/workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "messageId": "123e4567-e89b-12d3-a456-426614174000",
+          "channelId": "123e4567-e89b-12d3-a456-426614174000",
+          "platformId": "text",
+          "type": "clicked",
+          "messageReference": "text",
+          "messagePartsCount": 1,
+          "messageTags": [
+            "text"
+          ],
+          "receiver": {
+            "connector": {
+              "id": "123e4567-e89b-12d3-a456-426614174000",
+              "identifierValue": "text",
+              "annotations": {
+                "name": "text"
+              },
+              "types": [
+                "text"
+              ]
+            }
+          },
+          "createdAt": "2025-05-14T13:34:56.336Z",
+          "details": "text",
+          "context": {
+            "id": "text",
+            "type": "text",
+            "tags": [
+              "text"
+            ]
+          },
+          "metadata": {
+            "link": {
+              "name": "text",
+              "url": "text"
+            },
+            "button": {
+              "payload": "text"
+            },
+            "reaction": {
+              "emoji": "text",
+              "action": "text"
+            },
+            "conversion": {
+              "type": "text",
+              "status": "text",
+              "method": "text",
+              "timestamp": "2025-05-14T13:34:56.336Z"
+            },
+            "prefetched": true,
+            "ANY_ADDITIONAL_PROPERTY": "anything"
+          }
+        }
+      ]
+    }
+Email supports the following [message interactions](</api/channels-api/message-status-and-interactions#message-interactions>):
+Interaction
+Description
+opened
+A user has opened a message
+clicked
+A user has clicked a link
+reported-as-spam
+A user has reported a message as spam
+unsubscribe-request
+A user has requested to unsubscribe from messages
+Additional information about the interactions can be found in the `details` field and `metadata.link` object as follows:
+Interaction
+Details
+metadata.link
+Description
+opened
+initial_open
+Recipient opened a message in an email client, thus rendering a tracking pixel at the top of the message
+open
+Recipient opened a message in an email client, thus rendering a tracking pixel at the bottom of the message
+amp_initial_open
+Recipient opened an AMP message in an email client, thus rendering a tracking pixel at the top of the message
+amp_open
+Recipient opened an AMP message in an email client, thus rendering a tracking pixel at the bottom of the message
+clicked
+click
+  * **name** - link title
+  * **url** - link url clicked
+
+Recipient clicked a tracked link in a message
+amp_click
+  * **name** - link title
+  * **url** - link url clicked
+
+Recipient clicked a tracked link in an AMP message
+reported-as-spam
+spam_complaint
+Messages was classified as spam by the recipient
+unsubscribe_request
+link_unsubscribe
+Recipient clicked the 'unsubscribe' button in an email client
+list_unsubscribe
+Recipient clicked an 'unsubscribe' link in an email message
+Last updated 1 year ago
+Was this helpful?
+# Sessions
+### 
+List sessions
+get
+/me/sessions
+Authorizations
+Responses
+
+OK
+application/json
+Responseobject[]
+Show properties
+get
+/me/sessions
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /me/sessions HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    [
+      {
+        "userId": "123e4567-e89b-12d3-a456-426614174000",
+        "tokenId": "123e4567-e89b-12d3-a456-426614174000",
+        "ip": "text",
+        "userAgent": "text",
+        "country": "text",
+        "region": "text",
+        "city": "text",
+        "createdAt": "2025-05-14T12:48:23.621Z",
+        "updatedAt": "2025-05-14T12:48:23.621Z"
+      }
+    ]
+### 
+Get session
+get
+/me/sessions/{tokenId}
+Authorizations
+Path parameters
+tokenIdstringRequired
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+
+Resource not found
+application/json
+get
+/me/sessions/{tokenId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /me/sessions/{tokenId} HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "userId": "123e4567-e89b-12d3-a456-426614174000",
+      "tokenId": "123e4567-e89b-12d3-a456-426614174000",
+      "ip": "text",
+      "userAgent": "text",
+      "country": "text",
+      "region": "text",
+      "city": "text",
+      "createdAt": "2025-05-14T12:48:23.621Z",
+      "updatedAt": "2025-05-14T12:48:23.621Z"
+    }
+### 
+Delete session
+delete
+/me/sessions/{tokenId}
+Authorizations
+Path parameters
+tokenIdstringRequired
+Responses
+
+Deleted
+
+Resource not found
+application/json
+delete
+/me/sessions/{tokenId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    DELETE /me/sessions/{tokenId} HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+Deleted
+    
+    No content
+Last updated 2 years ago
+Was this helpful?
+# List KYC form entries
+### 
+List KYC Form Entries by OrganizationID
+get
+/organizations/{organizationId}/kyc-forms/{kycFormId}/entries
+Authorizations
+user
+useraccessKey
+Path parameters
+organizationIdstringRequired
+The organization ID
+kycFormIdstring · uuidRequired
+Responses
+
+OK
+application/json
+Responseobject · KycFormEntryList
+Show properties
+get
+/organizations/{organizationId}/kyc-forms/{kycFormId}/entries
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /organizations/{organizationId}/kyc-forms/{kycFormId}/entries HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "organizationId": "123e4567-e89b-12d3-a456-426614174000",
+          "formId": "123e4567-e89b-12d3-a456-426614174000",
+          "locale": [
+            "en",
+            "pt-BR"
+          ],
+          "status": "draft",
+          "answers": [
+            {
+              "key": "text",
+              "valueString": "text",
+              "isDefault": true
+            }
+          ],
+          "createdAt": "2025-05-14T12:56:47.563Z",
+          "updatedAt": "2025-05-14T12:56:47.563Z"
+        }
+      ]
+    }
+Last updated 1 year ago
+Was this helpful?
+# Current user
+Make updates to the user to which the login token was issued.
+### 
+Get profile
+get
+/me
+Retrieve the profile of the currently logged in user.
+Authorizations
+Responses
+
+OK
+application/json
+Responseobject · User
+A user on the platform.
+Show properties
+
+unauthorized request
+application/json
+get
+/me
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /me HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "pending",
+      "name": "text",
+      "bio": "text",
+      "activeSessions": 1,
+      "createdAt": "2025-05-14T13:40:00.163Z",
+      "updatedAt": "2025-05-14T13:40:00.163Z",
+      "emails": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "userId": "123e4567-e89b-12d3-a456-426614174000",
+          "email": "name@gmail.com",
+          "verified": true,
+          "passwordSet": true,
+          "tokenSet": true,
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "defaultEmail": "text",
+      "identities": [
+        {
+          "id": "text",
+          "name": "text",
+          "email": "text",
+          "avatarUrl": "text",
+          "provider": "text",
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "avatarUrl": "text",
+      "phoneNumber": "text",
+      "phoneNumbers": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "userId": "123e4567-e89b-12d3-a456-426614174000",
+          "phoneNumber": "text",
+          "verified": true,
+          "primary": true,
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "locale": "text",
+      "timezone": "text",
+      "badges": [
+        "messagebird:cx"
+      ],
+      "userFraudInformation": {
+        "score": 1,
+        "userId": "text"
+      }
+    }
+### 
+Update profile
+patch
+/me
+Update the profile of the currently logged in user.
+Authorizations
+Body
+namestringOptional
+The display name for the user
+biostringOptional
+The user's description
+avatarUrlstringOptional
+URL to the user's profile picture.
+localestring · locale-bcp47Optional
+timezonestring · timezoneOptional
+The default timezone for the user.
+Responses
+
+OK
+application/json
+Responseobject · User
+A user on the platform.
+Show properties
+
+Request validation failed
+application/json
+patch
+/me
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    PATCH /me HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 81
+    
+    {
+      "name": "text",
+      "bio": "text",
+      "avatarUrl": "text",
+      "locale": "text",
+      "timezone": "text"
+    }
+Test it
+
+OK
+Copy
+    
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "pending",
+      "name": "text",
+      "bio": "text",
+      "activeSessions": 1,
+      "createdAt": "2025-05-14T13:40:00.163Z",
+      "updatedAt": "2025-05-14T13:40:00.163Z",
+      "emails": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "userId": "123e4567-e89b-12d3-a456-426614174000",
+          "email": "name@gmail.com",
+          "verified": true,
+          "passwordSet": true,
+          "tokenSet": true,
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "defaultEmail": "text",
+      "identities": [
+        {
+          "id": "text",
+          "name": "text",
+          "email": "text",
+          "avatarUrl": "text",
+          "provider": "text",
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "avatarUrl": "text",
+      "phoneNumber": "text",
+      "phoneNumbers": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "userId": "123e4567-e89b-12d3-a456-426614174000",
+          "phoneNumber": "text",
+          "verified": true,
+          "primary": true,
+          "createdAt": "2025-05-14T13:40:00.163Z",
+          "updatedAt": "2025-05-14T13:40:00.163Z"
+        }
+      ],
+      "locale": "text",
+      "timezone": "text",
+      "badges": [
+        "messagebird:cx"
+      ],
+      "userFraudInformation": {
+        "score": 1,
+        "userId": "text"
+      }
+    }
+### 
+Delete profile
+delete
+/me
+Delete the profile of the currently logged in user. Essentially deleting your account with the platform.
+Authorizations
+Responses
+
+OK
+delete
+/me
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    DELETE /me HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+    
+    No content
+Last updated 11 months ago
+Was this helpful?
+# Delete conversation message
+### 
+Delete a message
+delete
+https://api.bird.com/workspaces/{workspaceId}/conversations/{conversationId}/messages/{messageId}
+Delete a conversation message
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstring · uuidRequired
+The workspace ID
+Example: `b4e02c85-c6d2-4b15-8885-e09671799c61`
+conversationIdstring · uuidRequired
+The conversation ID
+Example: `67e4d358-ca94-421e-98b7-448860df9d33`
+messageIdstring · uuidRequired
+The message ID
+Example: `f303d128-0619-49ce-9e2a-669098d7d78b`
+Responses
+
+Deleted
+
+The resource specified in the URL was not found
+application/json
+delete
+/workspaces/{workspaceId}/conversations/{conversationId}/messages/{messageId}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    DELETE /workspaces/{workspaceId}/conversations/{conversationId}/messages/{messageId} HTTP/1.1
+    Host: api.bird.com
+    Authorization: Bearer JWT
+    Accept: */*
+    
+Test it
+
+Deleted
+    
+    No content
+## 
+Examples
+Request
+Copy
+    
+    curl -X DELETE "https://api.bird.com/workspaces/a1405560-c8d3-4b1a-877d-3f449ad95352/conversations/02ec2ac2-ebec-42d3-a5f4-e6f3a9edf418/messages/29d3a7f4-841d-4702-a495-20cab72f2865" \
+    -H "Authorization: AccessKey abcd"
+Last updated 5 months ago
+Was this helpful?
+# Message interactions
+You can list message interactions on a specific message using the following endpoint. In order to get a Line message, you must have an active Line channel and perform a HTTP request with a [valid access key](</api/api-access/api-authorization>).
+### 
+List message interactions
+get
+/workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions
+List message interactions
+Authorizations
+user
+useraccessKey
+Path parameters
+workspaceIdstring · uuidRequired
+The ID of the workspace
+messageIdstring · uuidRequired
+The ID for a message
+channelIdstring · uuidRequired
+The ID for a channel
+Responses
+
+OK
+application/json
+Responseobject · ChannelMessageInteractionsList
+A list of channel messages interactions
+Show properties
+
+The request did not pass validation
+application/json
+get
+/workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /workspaces/{workspaceId}/channels/{channelId}/messages/{messageId}/interactions HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "messageId": "123e4567-e89b-12d3-a456-426614174000",
+          "channelId": "123e4567-e89b-12d3-a456-426614174000",
+          "platformId": "text",
+          "type": "clicked",
+          "messageReference": "text",
+          "messagePartsCount": 1,
+          "messageTags": [
+            "text"
+          ],
+          "receiver": {
+            "connector": {
+              "id": "123e4567-e89b-12d3-a456-426614174000",
+              "identifierValue": "text",
+              "annotations": {
+                "name": "text"
+              },
+              "types": [
+                "text"
+              ]
+            }
+          },
+          "createdAt": "2025-05-14T13:12:28.896Z",
+          "details": "text",
+          "context": {
+            "id": "text",
+            "type": "text",
+            "tags": [
+              "text"
+            ]
+          },
+          "metadata": {
+            "link": {
+              "name": "text",
+              "url": "text"
+            },
+            "button": {
+              "payload": "text"
+            },
+            "reaction": {
+              "emoji": "text",
+              "action": "text"
+            },
+            "conversion": {
+              "type": "text",
+              "status": "text",
+              "method": "text",
+              "timestamp": "2025-05-14T13:12:28.896Z"
+            },
+            "prefetched": true,
+            "ANY_ADDITIONAL_PROPERTY": "anything"
+          }
+        }
+      ]
+    }
+Line supports the following [message interactions](</api/channels-api/message-status-and-interactions#message-interactions>): 
+Interaction
+Description
+Clicked
+A user has clicked a quick reply button
+Additional information about the interactions can be found in the `details` field and `metadata.button` object as follows:
+Interaction
+details
+metadata.button.
+Description
+Clicked
+item_**N** _clicked
+  * payload - user supplied payload sent in action button
+
+Recipient clicked a quick reply button. **N =** the position of the item in the actions array of the associated message
+Last updated 9 months ago
+Was this helpful?
+# TCR Enums
+## 
+Brands
+### 
+verticals
+### 
+List of available verticals in TCR
+get
+/numbers-tcr/verticals
+A vertical refers to a specific industry, market, or niche in which a company operates or targets its products and services. This endpoint returns the available ones here at Bird.
+Authorizations
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+get
+/numbers-tcr/verticals
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /numbers-tcr/verticals HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "name": "text",
+          "industryId": "text",
+          "displayName": "text",
+          "description": "text"
+        }
+      ]
+    }
+### 
+entityType
+Value
+Description
+PRIVATE_PROFIT
+Public company
+PUBLIC_PROFIT
+Private company
+NON_PROFIT
+A non profit
+GOVERNMENT
+A government entity
+### 
+altBusinessIdType
+Value
+Description
+DUNS
+Set if altBusinessId is DUNS number
+LEI
+Set if altBusinessId is LEI code
+GIIN
+Set if altBusinessId is GIIN number
+### 
+stockExchange
+NASDAQ, NYSE, AMEX, AMX, ASX, B3, BME, BSE, FRA, ICEX, JPX, JSE, KRX, LON, NSE, OMX, SEHK, SGX, SSE, STO, SWX, SZSE, TSX, TWSE, VSE
+### 
+stockSymbol
+stockSymbol must belong to a [stockExchange](</api/numbers-api/api-reference/10dlc-compliance/tcr-enums#stockexchange>)
+### 
+brandStatus
+Value
+Description
+FAILED
+Failed to submit Brand to the campaign registry
+PENDING
+Brand is pending approval
+REJECTED
+Brand has been rejected by the campaign registry
+APPROVED
+Brand has been approved by the campaign registry
+DELETED
+Brand has been deleted
+## 
+Brand Vetting
+### 
+vettingClass
+Value
+Description
+STANDARD
+Standard vetting
+### 
+vettingProviderId
+Value
+Description
+AEGIS
+Vetting provider AEGIS
+### 
+vettingStatus
+Value
+Description
+PENDING
+The vetting request is pending
+REJECTED
+This vetting request has been rejected
+FAILED
+The vetting request has failed
+APPROVED
+The vetting request has been approved
+EXPIRED
+The vetting has expired and a new vetting must be requested
+## 
+Campaigns
+### 
+useCases
+### 
+List of available use cases in TCR
+get
+/numbers-tcr/usecases
+Retrieve list of available use cases in TCR
+Authorizations
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+get
+/numbers-tcr/usecases
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /numbers-tcr/usecases HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "name": "text",
+          "accountingName": "text",
+          "classification": "text",
+          "displayName": "text",
+          "description": "text",
+          "maxSubUsecases": 1,
+          "minSubUsecases": 1,
+          "validSubUsecase": true
+        }
+      ]
+    }
+### 
+campaignStatus
+Value
+Description
+FAILED
+Campaign was submitted to MBCR but rejected by TCR
+PENDING
+Campaign is pending with TCR
+REJECTED
+Campaign is rejected by AT&T and no way to re submit
+APPROVED
+Campaign is approved
+DECLINED
+Campaign is rejected and can be edited and re submitted again.
+SUSPENDED
+Campaign is suspended 
+DELETED
+Campaign has been deleted
+EXPIRED
+Campaign has expired
+Last updated 1 year ago
+Was this helpful?
+# Reviews
+### 
+Review approval flow run
+post
+/organizations/{organizationId}/approvals/{approvalId}/runs/{approvalRunId}/reviews
+Authorizations
+Path parameters
+organizationIdstringRequired
+The organization ID
+approvalIdstring · uuidRequired
+approvalRunIdstring · uuidRequired
+Body
+resultstring · enumRequiredPossible values: `approved``rejected``canceled`
+commentstringOptional
+Responses
+
+OK
+
+Forbidden operation
+application/json
+
+Resource not found
+application/json
+
+The HTTP 409 Conflict response status code indicates a request conflict with current state of the target resource.
+application/json
+post
+/organizations/{organizationId}/approvals/{approvalId}/runs/{approvalRunId}/reviews
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /organizations/{organizationId}/approvals/{approvalId}/runs/{approvalRunId}/reviews HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 38
+    
+    {
+      "result": "approved",
+      "comment": "text"
+    }
+Test it
+
+OK
+    
+    No content
+Last updated 2 years ago
+Was this helpful?
+# Network/Country information for a phone number
+### 
+Network/Country information for a phone number
+get
+/workspaces/{workspaceId}/network-lookup
+Performs network lookup for a phone number
+Authorizations
+Path parameters
+workspaceIdstring · uuidRequired
+The ID for the workspace.
+Example: `d386a801-ee8d-4aba-a7e4-78671bd3b11e`
+Query parameters
+numberstring · min: 1 · max: 30Optional
+The phone number in E.164 format.
+Example: `+14155552671`
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+
+InvalidPayload
+application/json
+get
+/workspaces/{workspaceId}/network-lookup
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /workspaces/{workspaceId}/network-lookup HTTP/1.1
+    Host: 
+    Authorization: Bearer jwt
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "phoneNumber": "text",
+      "countryCode": "US",
+      "countryPrefix": 1,
+      "mcc": "text",
+      "mnc": "text",
+      "mccmnc": "text",
+      "operator": "text",
+      "formats": {
+        "e164": "text",
+        "international": "text",
+        "national": "text",
+        "rfc3966": "text"
+      },
+      "typeOfService": "mobile",
+      "validation": {
+        "valid": true,
+        "reason": "text"
+      }
+    }
+Last updated 5 months ago
+Was this helpful?
+# Manage Endpoint Subscriptions
+Manage your Number/ Sender ID subscription status, all sender types are considered "endpoints".
+### 
+List Workspace Endpoint Subscriptions
+get
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstringRequired
+endpointIdstringRequired
+Responses
+
+OK
+application/json
+Responseall of
+objectOptional
+Show properties
+
+Endpoint not found
+application/json
+get
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions HTTP/1.1
+    Host: 
+    Authorization: Bearer JWT
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "results": [
+        {
+          "name": "text",
+          "status": "active",
+          "price": {
+            "currencyCode": "EUR",
+            "amount": 1,
+            "exponent": 1
+          },
+          "subscription": {
+            "id": "123e4567-e89b-12d3-a456-426614174000",
+            "correlationId": "123e4567-e89b-12d3-a456-426614174000",
+            "status": "active",
+            "subscribedAt": "2025-05-14T13:32:04.306Z",
+            "updatedAt": "2025-05-14T13:32:04.306Z",
+            "canceledAt": "2025-05-14T13:32:04.306Z",
+            "startAt": "2025-05-14T13:32:04.306Z",
+            "endAt": "2025-05-14T13:32:04.306Z"
+          }
+        }
+      ]
+    }
+### 
+Get Workspace Endpoint Subscription
+get
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstringRequired
+endpointIdstringRequired
+subscriptionNamestringRequired
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+
+Not Found
+application/json
+get
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    GET /workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName} HTTP/1.1
+    Host: 
+    Authorization: Bearer JWT
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "name": "text",
+      "status": "active",
+      "price": {
+        "currencyCode": "EUR",
+        "amount": 1,
+        "exponent": 1
+      },
+      "subscription": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "correlationId": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "active",
+        "subscribedAt": "2025-05-14T13:32:04.306Z",
+        "updatedAt": "2025-05-14T13:32:04.306Z",
+        "canceledAt": "2025-05-14T13:32:04.306Z",
+        "startAt": "2025-05-14T13:32:04.306Z",
+        "endAt": "2025-05-14T13:32:04.306Z"
+      }
+    }
+### 
+Activate Workspace Endpoint Subscription
+post
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/activate
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstringRequired
+endpointIdstringRequired
+subscriptionNamestringRequired
+Body
+quantityinteger · min: 1Required
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+
+Not Found
+application/json
+post
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/activate
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/activate HTTP/1.1
+    Host: 
+    Authorization: Bearer JWT
+    Content-Type: application/json
+    Accept: */*
+    Content-Length: 14
+    
+    {
+      "quantity": 1
+    }
+Test it
+
+OK
+Copy
+    
+    {
+      "name": "text",
+      "status": "active",
+      "price": {
+        "currencyCode": "EUR",
+        "amount": 1,
+        "exponent": 1
+      },
+      "subscription": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "correlationId": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "active",
+        "subscribedAt": "2025-05-14T13:32:04.306Z",
+        "updatedAt": "2025-05-14T13:32:04.306Z",
+        "canceledAt": "2025-05-14T13:32:04.306Z",
+        "startAt": "2025-05-14T13:32:04.306Z",
+        "endAt": "2025-05-14T13:32:04.306Z"
+      }
+    }
+### 
+Cancel Workspace Endpoint Subscription
+post
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/cancel
+Authorizations
+MessageBird_user
+MessageBird_userMessageBird_accessKey
+Path parameters
+workspaceIdstringRequired
+endpointIdstringRequired
+subscriptionNamestringRequired
+Responses
+
+OK
+application/json
+Responseobject
+Show properties
+
+Not Found
+application/json
+post
+/workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/cancel
+HTTP
+HTTPcURLJavaScriptPython
+Copy
+    
+    POST /workspaces/{workspaceId}/endpoints/{endpointId}/subscriptions/{subscriptionName}/cancel HTTP/1.1
+    Host: 
+    Authorization: Bearer JWT
+    Accept: */*
+    
+Test it
+
+OK
+Copy
+    
+    {
+      "name": "text",
+      "status": "active",
+      "price": {
+        "currencyCode": "EUR",
+        "amount": 1,
+        "exponent": 1
+      },
+      "subscription": {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "correlationId": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "active",
+        "subscribedAt": "2025-05-14T13:32:04.306Z",
+        "updatedAt": "2025-05-14T13:32:04.306Z",
+        "canceledAt": "2025-05-14T13:32:04.306Z",
+        "startAt": "2025-05-14T13:32:04.306Z",
+        "endAt": "2025-05-14T13:32:04.306Z"
+      }
+    }
+Last updated 9 months ago
+Was this helpful?
+# Update antispam setting
+## 
+Examples
+Request
+Copy
+    
+    curl -X PATCH "https://api.bird.com/workspaces/a1405560-c8d3-4b1a-877d-3f449ad95352/conversations-antispam-settings" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: AccessKey abcd" \
+    -d '{
+      "enabled": true
+    }'
+Last updated 5 months ago
+Was this helpful?

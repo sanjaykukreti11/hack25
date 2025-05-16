@@ -1,80 +1,61 @@
-You are given documentation or text information about an API. Based on this information, your task is to dynamically generate a configuration JSON following the format below.
-
-The configuration has a static structure in some parts and a dynamic structure in others. Here are the rules you must follow:
-
-✅ Static Fields (Do not change):
+You are given documentation or descriptive text about an API. Your task is to dynamically generate a configuration JSON using the structure and rules below.
 "channelTemplate": {}
-
 "integrationType": "RealTime"
-
-
 "integrationPartnerMetadata.channelId": "120"
-
 "integrationPartnerMetadata.channelType": 1
-
 "integrationPartnerMetadata.destinationType": "Creation"
-
-"integrationPartnerMetadata.destinationMetaData.clientId" object with:
-
-json
-Copy
-Edit
-{
+"integrationPartnerMetadata.destinationMetaData.clientId": {
   "secret": true,
   "type": "text",
-  "description": "",
+  "description": "Enter some unique instance name for this destination",
   "masked": true,
   "masked_type": "PARTIALLY",
   "name": "Destination Instance"
 }
-🧠 Dynamic Fields (Extract from API info):
 
-"integrationPartnerMetadata.intId": " note if you find intPartnerId, use that one only"
+Dynamic Fields (Extract from the API documentation):
+intId: Use intPartnerId if available; otherwise, use intId.
 
+intPartnerName: Extract the integration partner name (e.g., Emarsys, Salesforce, or if it file based upload, give the cloud platform name).
 
-intPartnerName
+destinationMetaData:
 
-Extract the name of the integration partner from the API info (e.g., Emarsys, Salesforce, etc.).
+Identify user-provided inputs required to call the API:
 
-destinationMetaData
+Values needed in the URL, headers, or query parameters.
 
-For each dynamic parameter needed by the API (e.g., access tokens, event IDs, keys, etc.), create an object with the following structure:
+Do NOT include values that go in the body payload unless they are credentials or identifiers.
 
-json
-Copy
-Edit
+For each such parameter, create an object using this structure:
+
 {
   "secret": true,
   "type": "text",
-  "description": "",
+  "description": "", // Add a meaningful description
   "masked": true,
   "masked_type": "PARTIALLY",
-  "name": "<Descriptive Name>"
+  "name": "<Human-readable parameter name>"
 }
-The key for each object should be a relevant internal identifier (bearerToken, eventId, etc.).
 
-The name field should be a human-readable version of the key (Bearer Token, Event Id, etc.).
 
-The object clientId must always be included with its static structure (see above).
+The key should be an internal identifier (e.g., bearerToken, eventId).
 
-Do not repeat clientId for dynamic values.
-
-🎯 Example Output Structure:
-json
-Copy
-Edit
+The name should be human-friendly (e.g., Bearer Token, Event Id).
+channelDescription.shortDesc = give some meaningful one liner description about the channel.
+channelDescription.longDesc = give some meaningful 3-4 liner description about the channel.
+Do not duplicate clientId—it must always be included with its static structure.
 {
   "channelTemplate": {},
   "integrationType": "RealTime",
   "integrationPartnerMetadata": {
-    "intId": "3424" //  note if you find intPartnerId, use that one only ,
-    "channelId": "32",
+    "intId": "3424",
+    "channelId": "120",
     "intPartnerName": "Emarsys",
     "destinationMetaData": {
       "bearerToken": {
         "secret": true,
         "type": "text",
-        "description": "",
+        "description": "Bearer token for authenticating requests",
         "masked": true,
         "masked_type": "PARTIALLY",
         "name": "Bearer Token"
@@ -90,7 +71,7 @@ Edit
       "eventId": {
         "secret": true,
         "type": "text",
-        "description": "",
+        "description": "Identifier for the event to be triggered",
         "masked": true,
         "masked_type": "PARTIALLY",
         "name": "Event Id"
@@ -98,13 +79,107 @@ Edit
     },
     "channelType": 1,
     "destinationType": "Creation",
-    "channelDescription": {}
+    "channelDescription": {
+
+    "shortDesc" : "hi",
+    "longDesc" : "longDesc"
+    }
   }
 }
+
 Use the API information provided to:
 
-Determine the integration partner name.
+Extract and assign the intId and intPartnerName.
 
-Identify the required parameters that should be added under destinationMetaData, it will contains only credentials values, some platform related id values, it will not include the actual data values that has to be send in the request body of api call, it will only include, the values which is needed in url ( check if anything user has to provide ), header ( check if anything user has to provide ), params ( check if anything user has to provide ),and create each one as an object in the specified structure.
+Identify and define all required credential or ID values needed for URL, headers, or params under destinationMetaData.
+
+
+FTP/SFTP Special Handling:
+If the integration is FTP or SFTP-based (e.g., the documentation mentions FTP/SFTP protocols or file transfers):
+{
+  "host": {
+    "secret": true,
+    "type": "text",
+    "description": "Hostname or IP address of the FTP/SFTP server",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "FTP/SFTP Host"
+  },
+  "port": {
+    "secret": true,
+    "type": "text",
+    "description": "Port to connect to on the FTP/SFTP server",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "FTP/SFTP Port"
+  },
+  "username": {
+    "secret": true,
+    "type": "text",
+    "description": "Username for FTP/SFTP authentication",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "FTP/SFTP Username"
+  },
+  "password": {
+    "secret": true,
+    "type": "text",
+    "description": "Password for FTP/SFTP authentication",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "FTP/SFTP Password"
+  },
+  "remotePath": {
+    "secret": true,
+    "type": "text",
+    "description": "Remote path where files are to be uploaded or read",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "FTP/SFTP Remote Path"
+  }
+}
+
+AWS S3 Special Handling:
+If the integration is S3-based (e.g., the documentation mentions S3 AWS protocols or file transfers):
+{
+  "bucketName": {
+    "secret": true,
+    "type": "text",
+    "description": "Name of the S3 bucket where files are stored or retrieved from",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "S3 Bucket Name"
+  },
+  "region": {
+    "secret": true,
+    "type": "text",
+    "description": "AWS region where the S3 bucket is hosted",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "AWS Region"
+  },
+  "accessKey": {
+    "secret": true,
+    "type": "text",
+    "description": "AWS Access Key ID for accessing the S3 bucket",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "AWS Access Key ID"
+  },
+  "secretKey": {
+    "secret": true,
+    "type": "text",
+    "description": "AWS Secret Access Key for accessing the S3 bucket",
+    "masked": true,
+    "masked_type": "PARTIALLY",
+    "name": "AWS Secret Access Key"
+  }
+}
+
+
+integrationType = RealTime / Batch
+if it is api based then RealTime, otherwise if it is cloud based then Batch.
 
 Return only the generated configuration JSON.
+
+Do not include any explanatory text—only return the final JSON.

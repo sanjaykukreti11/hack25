@@ -1,21 +1,21 @@
-Generate a configuration JSON with the following structure and rules:
+You are given documentation or descriptive text about an integration channel.
+
+Your task is to generate a configuration JSON to support either:
+
+- Real-time API-based upload
+- File-based upload (to SFTP, S3, or GCS)
+
+---
+
+### 🌐 If it's an API-based upload:
+
+1. Use the following JSON structure:
 
 {
   "intId": 9090,
   "configMap": {
     "RealTimeTransform": {
-      "channelFieldTransformations": [
-                                                     {
-                                                         "Attribute": "abc",
-                                                         "Transform Type": "CASE_CHANGE",
-                                                         "Transform Name": "LOWER"
-                                                     },
-                                                     {
-                                                         "Attribute": "abc",
-                                                         "Transform Type": "HASHING",
-                                                         "Transform Name": "MD2"
-                                                     }
-                                                 ],
+      "channelFieldTransformations": [],
       "requestTemplate": {}
     },
     "RealTimeUpload": {
@@ -24,23 +24,12 @@ Generate a configuration JSON with the following structure and rules:
         "apiDetails": {
           "uploadUrl": "",
           "apiType": "POST",
-          "headers": {
-            "Auth": "${bearerToken}"
-          },
-          "params" : {
-
-          }
+          "headers": {},
+          "params": {}
         },
-        "requestBody": {
-          "requestBody": {},
+        "requestBody": {  /// do not change this object
+          "requestBody": {}, // keep it as empty object always
           "requestBodyType": "JSON"
-        },
-        "authDetails": {
-          "authType": "Basic",
-          "authData": {
-            "username": "${clientId}",
-            "password": "${eventId}"
-          }
         }
       }
     }
@@ -51,21 +40,20 @@ Generate a configuration JSON with the following structure and rules:
   "actionId": 421
 }
 
-
-Requirements:
-Static Fields
-"intId" ( but if you find intPartnerId somewhere use that as intId not static ), "actionId" ( if you find actionId somewhere use that not static ) , and "steps" must always retain their values as shown.
-
-The full structure under "RealTimeUpload" is mostly fixed in shape.
-
+2. Rules:
+- Use `intPartnerId` from input as `intPartnerId` if found, otherwise use 9090.
+- Use `actionId` from input if found, otherwise use 421.
+- `requestTemplate` is always `{}`.
 RealTimeTransform Rules
 "requestTemplate" remains an empty object: {}.
 
-"channelFieldTransformations" is to be generated dynamically from the attributes present in the request body of the channel api information, you have to figure out what transformation that attribute need.
+"channelFieldTransformations" is to be generated dynamically from the attributes present in the request body of the channel api information ( take this from curl only), you have to figure out what transformation that attribute need.
 
-For each attribute that requires transformation:
+For each attribute that requires transformation ( check whether that attribute need transformation or not, if it mentioned then do add it ):
 
 Use the full path (e.g., "attributes.email").
+
+requestBody : this is static, use same as template
 
 The value should be a list of transformation objects:
 
@@ -77,29 +65,105 @@ The value should be a list of transformation objects:
   }
 ]
 
-You must determine which fields require transformation (e.g., PII like email, phone).
+- In `apiDetails`:
+  - Extract `uploadUrl`( check for the api url in the information), `apiType`, `headers`, `params` from the input information.
+  - Any user-supplied values must be wrapped as `${camelCaseKey}`.
+  If the API documentation or description explicitly mentions authentication (e.g., username/password or token fetching), then include the authDetails object accordingly.
+  from the api curl, try to find which type of authentication the api required, if you find it is username/password something, then it is basic auth, if it has another api, to get token, then it is API auth
+  Use "authType": "Basic" for username/password and set authData with ${} placeholders.
 
-RealTimeUpload Rules
-"uploadType" is JSON always, under requestBody, requestBody will be empty object always .
+  Use "authType": "API" only if the config needs to call another API to fetch a token.
+  If no authentication is mentioned at all, do not include authDetails—not even the key—in the final config.
 
-In "apiDetails" object:
-uploadUrl : find it from channel informations and replace it in the above template, if you find any value which need to take form user, keep it like ${keyNameCammelCase}
-apiType : find it from channel informations and replace it in the above template,
-headers : find it from channel informations and replace it in the above template ( all keys and values find from channel information, the above config json is just a template)
-params : find it from channel informations and replace it in the above template, ( all keys and values find from channel information, the above config json is just a template)
 
-Any dynamic value (which should provide by user) that must be provided by the user should be represented using ${keyNameInCamelCase} format (e.g., ${bearerToken}).
+channelFieldTransformations : it will contains only those attributes, which are present in the api curl
+---
 
-In "headers":
-List all key-value pairs required by the API from information.
-If a value is fixed, include it directly. If it must come from the user, use the ${} placeholder.
+### 📁 If it's a File-based upload (JSON or CSV to SFTP/S3/GCS):
 
-In "authDetails":
-Determine whether the API uses:
-"authType": "Basic" (username/password), or
-"authType": "API" (only if we have to hit some another api to fetch token ).
-if nothing was there don't add authDetails objects in the final config json.
+1. Use the following structure:
 
-Set values as ${keyNameInCamelCase} for user-supplied values.
+{
+  "intId": 687889,
+  "configMap": {
+    "Transform": {
+      "delimiter": ",",
+      "INTERIM_FILE_FORMAT": "${originalFile}_${segmentName}_${segment}",
+      "UPLOADER_TYPE": "JSON_TO_CSV",
+      "SEGMENT_FORMAT_V2": "%s",
+      "OUTPUT_FORMAT": "OUTPUT_FORMAT_CONFIG",
+      "INPUT_FILE_TYPE": "JSON",
+      "transformToChannelJson": true
+    },
+    "Rename": {
+      "INTERIM_FILE_FORMAT": "${originalFile}_${segmentName}_${segment}",
+      "OUTPUT_FILE_FORMAT": "OUTPUT_FILE_FORMAT_CONFIG",
+      "timestampFormat": "yyyyMMddHHmmssSSSSSS",
+      "OUTPUT_FILE_FORMAT_CONFIG": "${numericOrgId}_externalId_${segment}_${segmentName}_${timestamp}_${fileNumber}.csv"
+    },
+    "Split": {
+      "SPLIT_TYPE": "size",
+      "MAX_SIZE": "2 GB"
+    },
+    "Compress": {
+      "compressType": "GZIP"
+    },
+    "Headers": {
+      "delimiter": ",",
+      "createMappingHeaders": true
+    },
+    "Upload": {
+      "UPLOAD_TYPE": "SFTP",
+      "UPLOADER_CONFIG": "UPLOADER_CONFIG_DETAILS",
+      "UPLOADER_CONFIG_DETAILS": {
+        "host": "${host}",
+        "folder": "${folder}",
+        "username": "${username}",
+        "password": "${password}",
+        "port": "${port}"
+      }
+    }
+  },
+  "steps": {
+    "Upload": [
+      "Transform",
+      "Split",
+      "Headers",
+      "Compress",
+      "Rename",
+      "Upload"
+    ]
+  },
+  "actionId": 436
+}
 
-Return only the generated JSON config based on the above structure and logic.
+2. Rules:
+- Use `intPartnerId` and `actionId` from input if present, else default to `687889` and `436`.
+- For `steps.Upload`:
+  - If file type is **JSON**, remove `"Headers"` step.
+  - If file type is **CSV** or unknown, include `"Headers"` step.
+
+- In `configMap`:
+  - `Transform`:
+    - Change `UPLOADER_TYPE` to `JSON_TO_JSON` if JSON file, `JSON_TO_CSV` if CSV.
+    - Set `INPUT_FILE_TYPE` to `"JSON"` or `"CSV"` accordingly.
+  - `Rename`:
+    - Use default unless a specific filename is mentioned.
+    - If filename is found, set `OUTPUT_FILE_FORMAT_CONFIG` to that + correct extension.
+  - `Split`:
+    - Change `MAX_SIZE` only if size limit is mentioned in the input.
+  - `Headers`:
+    - Present only for CSV uploads or if file type is unknown.
+  - `Compress`:
+    - Always include with `"GZIP"`.
+  - `Upload`:
+    - Use appropriate type: `SFTP`, `S3`, or `GCS`.
+    - Use correct keys based on platform:
+      - **SFTP**: host, port, username, password, folder
+      - **S3**: accessKey, secretKey, bucketName, region
+      - **GCS**: bucket, serviceAccountKey, path
+    - For each user-supplied field, use `"${camelCaseKey}"`.
+
+---
+
+🟢 Your task: Determine whether the channel is **API-based** or **file-based** and return only the final generated JSON config. Do not include any explanation or extra text.

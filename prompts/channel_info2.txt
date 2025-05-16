@@ -1,0 +1,570 @@
+Based on the provided documentation, Rokt is a platform that helps ecommerce businesses and advertisers connect.  It offers two main products:
+
+* **Rokt Ads:** A performance advertising channel for advertisers to reach customers on the confirmation pages of large ecommerce sites. Advertisers only pay for positive interactions (clicks or views leading to conversions), and Rokt uses machine learning to predict customer conversion propensity and target ideal customers using first-party data.
+
+* **Rokt Ecommerce:** A tool for ecommerce partners to increase revenue and customer engagement.  It allows partners to display personalized third-party offers (earning commission on sales), recommend upsells and cross-sells, and run engagement campaigns (e.g., app downloads, newsletter signups).  It uses machine learning to optimize the customer experience and maximize partner objectives.
+
+Rokt provides a suite of APIs and SDKs (Software Development Kits) for secure and customizable integration with various platforms (web, iOS, Android, React Native, Flutter) and systems (CDPs, payment processors, data warehouses).  These APIs allow for tasks such as sending conversion data, retrieving performance insights, managing custom audiences, and handling add-to-cart functionalities.  The platform also includes robust policies to ensure relevance, accuracy, and compliance with various regulations.
+
+Rokt Ads is a performance advertising channel that provides advertisers with access to a unique acquisition channel: the confirmation pages of major e-commerce websites.  Instead of paying for impressions, advertisers only pay for positive interactions (referrals) with their offers.
+
+Here's a breakdown of key aspects of Rokt Ads:
+
+* **Unique Placement:**  Ads are shown on the confirmation pages of e-commerce sites after a customer completes a purchase. This is a high-intent moment, as the customer has just finished a transaction and is more likely to be receptive to additional offers.
+
+* **Pay-for-Performance:**  The cost model is cost-per-referral (CPR), meaning advertisers only pay when a customer positively engages with their offer (e.g., clicks a link, submits information).  This reduces wasted ad spend on impressions that don't lead to conversions.
+
+* **Data-Driven Targeting:** Rokt uses machine learning algorithms and first-party data (age, gender, postal code, credit card information) to predict a customer's propensity to convert and target the ideal customer profile for each advertiser.  This improves the efficiency of campaigns.
+
+* **Attribution:** Rokt uses a default 7-day click and view attribution window for machine learning and optimization.  Advertisers are required to integrate suppression data, seed data, and close the loop with a persistent identifier to accurately track conversions.  This integration can be done via various methods including CDPs, platform integrations (like Shopify), payment processors, or APIs (Event API, Web SDK).
+
+* **Campaign Management:** Advertisers create campaigns, define target audiences, and design creatives (offers) to present to customers.  Tools are available for A/B testing and optimization.
+
+In short, Rokt Ads offers a high-intent, data-driven advertising solution that focuses on maximizing ROI by only charging for successful customer acquisitions.  The platform leverages machine learning and strategic placement to improve campaign performance and customer engagement.
+
+Rokt's campaign management capabilities are divided between two main offerings: Rokt Ads and Rokt Ecommerce.  Both utilize a platform (One Platform) for managing campaigns, but their focuses and functionalities differ significantly.
+
+**Rokt Ads Campaign Management:**
+
+Rokt Ads focuses on *third-party* advertising.  Advertisers use the platform to create campaigns aimed at acquiring new customers.  Key aspects of campaign management include:
+
+* **Campaign Creation:**  Advertisers define their campaign objectives (website visits, app installs, email sign-ups, etc.), target audiences (based on demographics, purchase behavior, etc.), and create compelling creatives (ads).  They set budgets and bidding strategies (manual or Smart Bidding, a machine learning-powered option).
+
+* **Audience Targeting:**  Rokt Ads leverages data to target specific customer segments.  Advertisers can utilize Rokt's pre-built audiences or upload their own custom audiences for precise targeting or suppression.  This ensures ads are shown to the most receptive users.
+
+* **Creative Management:**  Advertisers can upload multiple creatives for A/B testing and optimization.  The platform tracks performance metrics for each creative to identify top performers.
+
+* **Budget Optimization:**  Rokt provides tools to help manage campaign budgets effectively.  Budget Optimization automatically adjusts bids based on predicted transaction volumes, preventing budget exhaustion too early and maximizing ROI.
+
+* **Reporting and Analytics:**  The platform provides comprehensive reporting on campaign performance, including impressions, referrals, acquisitions, CPA, ROAS, and other key metrics.  This data helps advertisers track progress, identify areas for improvement, and optimize campaigns for better results.
+
+* **Compliance:** Rokt Ads emphasizes compliance with advertising regulations and data privacy laws.  Advertisers must adhere to Rokt's campaign policies and ensure their creatives are accurate, truthful, and non-offensive.
+
+**Rokt Ecommerce Campaign Management:**
+
+Rokt Ecommerce focuses on *first-party* campaigns and strategic partnerships.  Ecommerce partners use the platform to:
+
+* **Increase Revenue:** Display personalized third-party offers on confirmation pages, earning revenue for each customer opt-in.
+
+* **Suggest Relevant Products:** Recommend tailored upsells and cross-sells to boost average order value.  Partners can choose to offer their own products or earn commission on third-party sales.
+
+* **Increase Customer Lifetime Value:** Run engagement campaigns to improve customer loyalty and retention (app downloads, newsletter sign-ups, feedback collection, etc.).
+
+Campaign management in Rokt Ecommerce involves:
+
+* **Page and Placement Management:** Partners define pages (e.g., confirmation, checkout) and placements (specific areas on those pages) where offers will appear.  They can control the look and feel of these placements using layouts.
+
+* **Campaign Setup:**  Partners configure campaigns to achieve their objectives, selecting relevant offers (either their own or from Rokt's provider ecosystem).
+
+* **A/B and Multivariate Testing:**  The platform supports A/B and multivariate testing to optimize the effectiveness of different layouts and offers.
+
+* **Data and Security:**  Rokt Ecommerce emphasizes data security and privacy.  Partners can manage data integration and ensure compliance with relevant regulations.
+
+* **Reporting:**  Partners receive detailed reports on campaign performance, including engagement rates, revenue generated, and other key metrics.
+
+
+**Commonalities:**
+
+Both Rokt Ads and Rokt Ecommerce utilize the One Platform for campaign management, offering features like:
+
+* **Centralized Dashboard:**  A single interface to manage all campaigns, regardless of type.
+
+* **User Management:**  Control over user access and permissions.
+
+* **Account Settings:**  Configuration of account details and preferences.
+
+
+In summary, Rokt's campaign management is a robust system designed to help both advertisers and ecommerce partners achieve their marketing and business goals.  The specific features and functionalities available depend on whether the user is an advertiser (Rokt Ads) or an ecommerce partner (Rokt Ecommerce).
+
+Based on the provided documentation, you can send phone numbers and emails to Rokt using the following APIs, depending on your use case and whether the data is hashed or not:
+
+**1. Event API:**  This is the most versatile option for sending both email addresses and phone numbers *along with other event data*.  You would include the `email`, `emailsha256`, `mobile`, and `mobilesha256` fields within the `objectData` section of your JSON payload.  Remember that the phone number must be formatted as `5551234567` before hashing.  This API is ideal for associating the contact information with a specific event (e.g., a purchase, signup, etc.).
+
+**2. Custom Audience Import API:** This API is designed for importing lists of emails and/or SHA256 hashed emails for targeting or suppression within Rokt campaigns.  While it doesn't directly handle phone numbers, you could potentially use it for email-based audience segmentation.  The API supports sending large batches of emails efficiently.  This is best for managing audience lists rather than individual event-level data.
+
+**Choosing the Right API:**
+
+* **For event-level data (e.g., purchase with associated contact info):** Use the **Event API**. This allows you to link the contact information to a specific action taken by the user.
+
+* **For managing large lists of contacts for targeting or suppression in Rokt campaigns:** Use the **Custom Audience Import API**.  This is more efficient for bulk uploads.  Note that you'll need to hash your emails using SHA256 before sending them.
+
+**Important Considerations:**
+
+* **Hashing:**  Rokt strongly recommends hashing sensitive data like email addresses and phone numbers (using SHA256) before sending them.  This enhances data privacy and security.
+
+* **Authentication:**  Both APIs require authentication. You'll need to obtain API keys from your Rokt account manager.
+
+* **Data Limits:** The Custom Audience Import API has specific limits on request size and rate.  Be sure to check these limits before sending your data.
+
+* **API Version:** Pay close attention to the API version (v1 vs. v2/v3) to ensure compatibility.  The documentation indicates that newer versions are preferred for most use cases.
+
+
+In summary, the Event API is the more flexible choice if you need to send both email and phone number data along with other event details.  If you're primarily focused on managing large audience lists for targeting or suppression, the Custom Audience Import API is the better option.
+
+The provided documentation describes several Rokt APIs, but the best method for sending a list of emails depends on your goal:
+
+**1. If you want to suppress or target those emails in Rokt campaigns (Rokt Ads):**
+
+Use the **Custom Audience Import API**. This allows you to add or remove emails from a custom audience list within Rokt.  This list then influences which customers see your Rokt Ads campaigns.
+
+* **Endpoint:** `https://data.rokt.com/v3/import/suppression` (or the legacy endpoint if applicable)
+* **Authentication:**  Requires a Rokt Public Key and Secret Key pair (obtained from your Rokt account manager).  Use Basic HTTP Auth.
+* **Method:** `POST`
+* **Request Body:**  Send a JSON payload containing the `accountId`, `emails` (array of email addresses), and `action` (`include` to add, `exclude` to remove).  You can also use SHA256 hashed emails for better privacy.  See the documentation for details on request body structure and limits.
+
+**2. If you want to unsubscribe those emails from Rokt nurture email series:**
+
+Use the **Nurture Unsubscribe API**. This immediately removes the specified emails from all Rokt nurture communications.
+
+* **Endpoint:** `https://api.data.rokt.com/1.0/nurture/unsubscribe`
+* **Authentication:** Requires your Rokt API key (obtained from One Platform).  Use the `Authorization` header.
+* **Method:** `POST`
+* **Request Body:** Send a JSON payload containing the `email` (a single email address at a time).
+
+
+**Steps to send a list of emails:**
+
+Regardless of which API you choose, the process generally involves these steps:
+
+1. **Obtain Credentials:** Get your API key (for Nurture Unsubscribe) or Public/Secret key pair (for Custom Audience Import) from your Rokt account manager or One Platform.
+
+2. **Prepare your data:** Create a list of emails in a format suitable for the chosen API.  For the Custom Audience Import API, consider hashing your emails using SHA256 for enhanced privacy.
+
+3. **Send the request:** Use a tool like `curl` (as shown in the examples) or a programming language (Python, JavaScript, etc.) to make the API call.  Remember to include the necessary headers (Authorization, Content-Type) and the correctly formatted JSON payload.
+
+4. **Handle the response:** Check the HTTP status code (200 or 201 for success, other codes for errors) and examine the response body for any error messages or IDs.  Log the response for debugging purposes.
+
+5. **Batching (for Custom Audience Import):**  The Custom Audience Import API recommends batching your requests to send up to 100,000 emails per request.  Divide your list into smaller batches if necessary.
+
+**Example using Python and the Custom Audience Import API (requires the `requests` library):**
+
+```python
+import requests
+import hashlib
+import base64
+
+def sha256_hash(email):
+    """Hashes an email address using SHA256."""
+    hashed = hashlib.sha256(email.lower().encode()).hexdigest()
+    return base64.b64encode(hashed.encode()).decode()
+
+emails = ["email1@example.com", "email2@example.com", "email3@example.com"]
+#hashed_emails = [sha256_hash(email) for email in emails] #Uncomment for SHA256 hashing
+
+url = "https://data.rokt.com/v3/import/suppression"
+headers = {
+    "Authorization": "Basic " + base64.b64encode(b"YOUR_ROKT_PUBLIC_KEY:YOUR_ROKT_SECRET_KEY").decode(),
+    "Content-Type": "application/json"
+}
+payload = {
+    "accountId": "YOUR_ROKT_ACCOUNT_ID",
+    "emails": emails, #or "sha256s": hashed_emails
+    "action": "include" #or "exclude"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
+if response.status_code == 201:
+    print("Emails successfully imported.")
+    print(response.json()) #Print the response for debugging
+else:
+    print(f"Error importing emails: {response.status_code}")
+    print(response.text) #Print the error message
+```
+
+Remember to replace placeholders like `YOUR_ROKT_PUBLIC_KEY`, `YOUR_ROKT_SECRET_KEY`, and `YOUR_ROKT_ACCOUNT_ID` with your actual Rokt credentials.  Choose the API and method that best suits your needs and follow the detailed instructions in the provided documentation.
+
+The provided text gives several cURL examples for the Rokt Custom Audience Import API.  Here are the examples, categorized for clarity:
+
+**1.  Using Emails (v3 API):**
+
+This example adds `alice@example.com` and `bob@example.com` to the default `AdvertiserDatabase` list.  Remember to replace `"REPLACE_ME"` with your actual Rokt Account ID.
+
+```bash
+curl -X POST https://data.rokt.com/v3/import/suppression \
+    --user "rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
+    --header "Content-Type: application/json" \
+    --data '{"accountId": "REPLACE_ME", "emails":["alice@example.com","bob@example.com"],"action":"include"}'
+```
+
+**2. Using SHA256 Hashes (v3 API):**
+
+This example excludes the email address (hashed) from the "US_Customers" list.  Again, replace `"REPLACE_ME"` with your Rokt Account ID.
+
+```bash
+curl -X POST https://data.rokt.com/v3/import/suppression \
+    --user "rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
+    --header "Content-Type: application/json" \
+    --data '{"accountId": "REPLACE_ME", "list":"US_Customers","sha256":"1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206","action":"exclude"}'
+```
+
+**3. Using Emails (Legacy API):**
+
+This example uses the legacy API and requires an API key in the `Authorization` header.  Replace `$API_KEY` with your actual API key.
+
+```bash
+curl -X POST https://data.rokt.com/api/1.0/import/suppression \
+    --header "Authorization: $API_KEY" \
+    --header "Content-Type: application/json" \
+    --data '{"emails":["alice@example.com","bob@example.com"],"action":"include"}'
+```
+
+**4. Using SHA256 Hashes (Legacy API):**
+
+This example uses the legacy API and an API key to exclude a hashed email from the "US_Customers" list. Replace `$API_KEY` with your actual API key.
+
+```bash
+curl -X POST https://data.rokt.com/api/1.0/import/suppression \
+    --header "Authorization: $API_KEY" \
+    --header "Content-Type: application/json" \
+    --data '{"list":"US_Customers","sha256":"1753bdb368271a785887ddbfb926164f2f7c6a88f609c07ff0401c5572955206","action":"exclude"}'
+```
+
+**Important Considerations:**
+
+* **Replace Placeholders:**  Make sure to replace the placeholder values (`REPLACE_ME`, `rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee`, `$API_KEY`) with your actual Rokt account information.
+* **API Key Security:**  Never hardcode your API keys directly into your scripts. Use environment variables or a more secure method to manage them.
+* **Error Handling:**  These examples lack error handling.  In a production environment, you should add code to check the HTTP status code and handle potential errors.
+* **Rate Limits:** Be mindful of the API rate limits to avoid exceeding them.
+* **Choose the Right API:** Use the v3 API unless you are specifically instructed to use the legacy API.  The v3 API offers simpler authentication.
+
+
+Remember to consult the Rokt documentation for the most up-to-date information and best practices.
+
+The provided text describes several Rokt APIs, but doesn't give direct instructions on how to *access* them.  To access any of the Rokt APIs, you need to follow these general steps:
+
+1. **Obtain API Credentials:**  This is the crucial step.  The documentation consistently emphasizes contacting your Rokt account manager.  They will provide you with the necessary App IDs, App Secrets, or API keys required for authentication.  Do *not* attempt to find these credentials yourself; they are specific to your account and are kept confidential.
+
+2. **Choose the Correct API Endpoint:**  The documentation details the base URLs and specific endpoints for each API (e.g., `/reporting/`, `/v2/events`, `/v3/import/suppression`).  Select the correct endpoint based on the functionality you need.
+
+3. **Follow Authentication Instructions:** Each API uses a specific authentication method:
+
+    * **OAuth 2.0 (Reporting API, Legacy Event API):** You'll use your App ID and App Secret to obtain an access token, which is then included in subsequent requests.  The documentation provides details on how to get the access token.
+
+    * **Basic HTTP Authentication (Event API v2, Custom Audience Import API):** You'll use your Rokt Public Key and Rokt Secret Key (or API Key for legacy Custom Audience Import API) encoded as a Base64 string in the `Authorization` header.
+
+4. **Construct Your Request:**  Use the appropriate HTTP method (GET, POST, DELETE) and include any necessary parameters in the request headers or body, as specified in the API documentation.  The examples provided in the documentation are very helpful for this step.
+
+5. **Send the Request:** You can use tools like `curl` (command line) or any programming language with HTTP libraries (Python's `requests`, Node.js's `axios`, etc.) to send the request to the Rokt API server.
+
+6. **Handle the Response:**  The API will return a response with a status code and potentially a JSON payload containing the requested data or an error message.  Carefully examine the response to ensure the request was successful and handle any errors appropriately.
+
+
+**In short:**  Contact your Rokt account manager. They are the only source for the credentials you need to access these APIs.  Once you have those credentials, you can use the detailed instructions and examples provided in the documentation to make API calls.
+
+Rokt's Custom Audience Import API allows advertisers and partners to send lists of customers to Rokt for targeting or suppression purposes within their campaigns.  This is done by sending a JSON payload containing customer data to a specific API endpoint.
+
+Here's a breakdown of the key aspects:
+
+**Purpose:**
+
+* **For Advertisers:**  Use custom audience lists to target specific customers with offers or suppress them from seeing certain campaigns.  This allows for more precise and effective advertising.
+* **For Partners:** Use custom audience lists to control which customers see the Rokt experience on their website.  This allows for better personalization and potentially improved user experience.
+
+**Key Features:**
+
+* **Multiple Input Methods:** The API accepts customer data in several formats:
+    * Individual email addresses (`email`)
+    * Arrays of email addresses (`emails`)
+    * Individual SHA-256 hashed email addresses (`sha256`)
+    * Arrays of SHA-256 hashed email addresses (`sha256s`)  (Recommended for privacy)
+* **Include/Exclude Actions:** You specify whether you want to *include* customers in a list (for targeting) or *exclude* them (for suppression).
+* **Custom Audience Lists:** You can optionally specify a custom list name. If not specified, data is imported into the default "AdvertiserDatabase" list.
+* **Batch Processing:**  The API supports batching requests, allowing you to send large numbers of emails in a single request (up to 100,000 emails per request).  This improves efficiency.
+* **Rate Limiting:**  To prevent abuse, there are rate limits on the number of requests per second and concurrent requests.
+* **Authentication:**  Requires authentication using either:
+    * **Legacy Authentication:**  A single API key (for existing users and specific CDPs).
+    * **New Authentication (Public Beta):** A public and secret key pair using Basic HTTP Authentication.  This is the recommended method.
+
+**API Endpoint:**
+
+There are two endpoints: a newer, recommended version and a legacy version.
+
+* **New Endpoint (Recommended):** `https://data.rokt.com/v3/import/suppression`
+* **Legacy Endpoint:** `https://data.rokt.com/api/1.0/import/suppression`
+
+**Request Body:**
+
+The JSON payload must include:
+
+* `accountId`: Your Rokt Account ID.
+* `action`:  Either `"include"` or `"exclude"`.
+* At least one of the email/hashed email parameters (`email`, `emails`, `sha256`, `sha256s`).
+
+**Response Handling:**
+
+* `201 Created`: Successful import.
+* `400 Bad Request`:  Errors due to missing fields, incorrect format, or other issues.
+
+**Limits:**
+
+* Request size: 100,000 emails per request.
+* Rate limit: 4 requests per second.
+* Concurrency limit: 4 concurrent requests.
+
+**In short:** Rokt's Custom Audience Import API provides a robust and efficient way to manage customer lists for targeted advertising and personalized experiences.  The use of SHA-256 hashing is strongly recommended to protect customer privacy.  Always consult the latest documentation for the most up-to-date information on endpoints, parameters, and limits.
+
+Rokt's new Custom Audience Import API (v3) offers a streamlined method for advertisers and partners to manage customer lists for targeting and suppression within their Rokt campaigns.  Here's a breakdown of its key features:
+
+**Purpose:**  The API allows you to upload lists of customer email addresses (or their SHA-256 hashes) to either include (target) or exclude (suppress) those customers from seeing your offers.  This is useful for:
+
+* **Advertisers:**  Targeting specific customer segments with tailored offers or preventing unwanted exposure to certain customers.
+* **Partners:** Controlling which customers see the Rokt experience on their site.
+
+**Key Improvements over the Legacy API (v1):**
+
+* **Simplified Authentication:** Uses Basic HTTP Authentication with a public and secret key pair provided by your Rokt account manager, replacing the older, more complex legacy API key system.
+* **Improved Efficiency:**  Allows batching of requests up to 100,000 emails per request, significantly improving upload speed compared to the legacy API.
+
+**Endpoint:**
+
+`https://data.rokt.com/v3/import/suppression`
+
+**Authentication:**
+
+You'll need a public and secret key pair from your Rokt account manager.  These keys are used with Basic HTTP Authentication.  The username and password string is "Basic " + base64 encoded string of `rpub-*:rsec-*`.
+
+**Request Body:**
+
+The JSON payload must include:
+
+* `accountId`: Your Rokt Account ID (found in OnePlatform).
+* `action`:  Either `"include"` to add emails to the list or `"exclude"` to remove them.
+* **Exactly one** of the following:
+    * `email`: A single email address.
+    * `emails`: An array of email addresses.
+    * `sha256`: A single SHA-256 hashed email.
+    * `sha256s`: An array of SHA-256 hashed emails.  (Remember to lowercase and remove whitespace from emails *before* hashing).
+* `list` (optional): The name of the custom audience list. If omitted, it defaults to `AdvertiserDatabase`.
+
+**Limits:**
+
+* **Request size:** 100,000 emails per request.
+* **Rate limit:** 4 requests per second.
+* **Concurrency limit:** 4 concurrent requests.
+
+**Response Handling:**
+
+* `201 Created`: Successful upload.
+* `400 Bad Request`: Missing required fields or incorrect format.
+
+**Example (cURL):**
+
+To include `alice@example.com` and `bob@example.com`:
+
+```bash
+curl -X POST https://data.rokt.com/v3/import/suppression \
+    --user "rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
+    --header "Content-Type: application/json" \
+    --data '{"accountId": "REPLACE_ME", "emails":["alice@example.com","bob@example.com"],"action":"include"}'
+```
+
+Remember to replace `"REPLACE_ME"` with your actual `accountId` and the placeholder keys with your actual keys.  The legacy API is still available for existing users but the new v3 API is recommended for its simplicity and efficiency.
+
+The provided `curl` command is missing the base64 encoded username and password for Basic HTTP authentication.  Here's the corrected version, along with explanations:
+
+**Corrected cURL Command:**
+
+```bash
+#!/bin/bash
+
+# Replace with your actual Rokt Public and Secret Keys
+rokt_public_key="rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+rokt_secret_key="rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+
+# Replace with your actual Rokt Account ID
+rokt_account_id="REPLACE_ME"
+
+# Encode the credentials for Basic Auth
+encoded_credentials=$(echo -n "${rokt_public_key}:${rokt_secret_key}" | base64)
+
+# Construct the curl command
+curl -X POST "https://data.rokt.com/v3/import/suppression" \
+    -u "${encoded_credentials}" \
+    -H "Content-Type: application/json" \
+    -d "{\"accountId\": \"${rokt_account_id}\", \"emails\": [\"test1@example.com\", \"test2@example.com\"], \"action\": \"include\"}"
+```
+
+**Explanation:**
+
+1. **Variable Assignment:** The script starts by defining variables for your Rokt Public Key, Secret Key, and Account ID.  **Remember to replace the placeholder values with your actual keys and ID.**
+
+2. **Base64 Encoding:**  The `encoded_credentials` variable uses `echo -n` (to avoid adding a newline) and `base64` to encode the concatenated public and secret keys. This is crucial for Basic HTTP authentication.
+
+3. **cURL Command:** The `curl` command is then constructed using the encoded credentials.  The `-u` flag specifies the username and password for Basic Auth.  The `-H` flag sets the `Content-Type` header, and `-d` provides the JSON payload.  The JSON payload is now correctly formatted as a JSON string using double quotes around the entire object and escaping double quotes within the string.
+
+4. **Shebang:** The `#!/bin/bash` line at the beginning makes this a runnable shell script.  You'll need to make it executable using `chmod +x your_script_name.sh` before running it.
+
+
+**How to Use:**
+
+1. **Save the script:** Save the code above as a file (e.g., `import_emails.sh`).
+2. **Replace placeholders:**  Substitute `"rpub-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"`, `"rsec-aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"`, and `"REPLACE_ME"` with your actual Rokt keys and account ID.
+3. **Make it executable:** Open your terminal and run `chmod +x import_emails.sh`.
+4. **Run the script:** Execute the script using `./import_emails.sh`.
+
+
+This improved version ensures that your API request is properly authenticated and formatted, increasing the likelihood of a successful data import.  Remember to handle potential errors (e.g., non-zero exit codes from `curl`) in a production environment.
+
+The provided text contains many curl examples.  To give you *some* curl examples, I'll select a few diverse ones:
+
+**1. Update antispam setting:**
+
+```bash
+curl -X PATCH "https://api.bird.com/workspaces/a1405560-c8d3-4b1a-877d-3f449ad95352/conversations-antispam-settings" \
+-H "Content-Type: application/json" \
+-H "Authorization: AccessKey abcd" \
+-d '{
+  "enabled": true
+}'
+```
+
+**2. Update user profile:**
+
+```bash
+curl -X PATCH "https://api.example.com/me" \
+-H "Authorization: Bearer jwt" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "New Name",
+  "bio": "New Bio"
+}'
+```
+*(Note:  I've replaced the actual API endpoint with a placeholder.  Use the correct endpoint from your documentation.)*
+
+
+**3. Forward a call:**
+
+```bash
+curl -X POST "https://nest.messagebird.one/workspaces/8bc02f53-87ac-48d2-b4fd-c2cf856a305f/channels/880d8171-cbab-47bb-81b6-b1a0902da136/calls/4fc2edf7-68f5-437a-89eb-3ce0095409d6/bridge" \
+-H 'Authorization: Bearer {Token}' \
+-H "Content-Type: application/json" \
+-d '{
+  "from": "string",
+  "to": "string",
+  "ringTimeout": 30,
+  "maxDuration": 28800,
+  "record": true,
+  "recordStart": "record-from-answer",
+  "recordStereo": true
+}'
+```
+*(Remember to replace `{Token}` with your actual token.)*
+
+
+**4. Create an Organization:**
+
+```bash
+curl -X POST "https://api.example.com/organizations" \
+-H "Authorization: Bearer jwt" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "My Organization",
+  "slug": "my-org",
+  "countryCode": "US"
+}'
+```
+*(Again, replace the placeholder API endpoint with the correct one.)*
+
+
+These are just a few examples.  Remember to always replace placeholder values (like IDs, tokens, and URLs) with your actual data before running these commands.  Also, carefully review the API documentation for each endpoint to understand the required parameters and potential error responses.
+
+This is a comprehensive collection of API documentation.  To answer your request for help creating a KYC form entry, I need more context.  The provided documentation describes the endpoint and request format, but doesn't give details on the structure of the `answers` array.  Specifically, I need to know:
+
+* **What are the keys in the `answers` array?**  The example shows `"key": "text"`, but a real KYC form would have many more fields (e.g., name, address, date of birth, ID number, etc.).  Each key needs to correspond to a question or field in your KYC form.
+* **What data types are expected for each key?**  Is `"valueString"` always appropriate, or are some answers numbers, dates, booleans, or other data types?
+* **What is the `kycFormId`?** You need to obtain this ID from your KYC form management system.
+
+Once I have this information, I can provide a more accurate and helpful example of a POST request to create a KYC form entry.
+
+
+**Example (Illustrative - Requires Customization):**
+
+Let's assume your KYC form has these fields:
+
+* `firstName` (string)
+* `lastName` (string)
+* `dateOfBirth` (date)
+* `address` (string)
+* `idNumber` (string)
+
+
+Then, a possible POST request body might look like this:
+
+```json
+{
+  "locale": ["en"],
+  "answers": [
+    {"key": "firstName", "valueString": "John"},
+    {"key": "lastName", "valueString": "Doe"},
+    {"key": "dateOfBirth", "valueString": "1980-05-10"},
+    {"key": "address", "valueString": "123 Main St"},
+    {"key": "idNumber", "valueString": "1234567890"}
+  ],
+  "status": "submitted"
+}
+```
+
+Remember to replace `"en"` with your desired locale(s),  `123e4567-e89b-12d3-a456-426614174000` with your actual `organizationId` and `kycFormId`, and the example values with the actual user data.  Also, consider whether `valueString` is the correct type for all fields; you might need `valueNumber`, `valueBoolean`, or other value types depending on your form's design.  The date format might also need adjustment.  Consult your KYC form's specification for the exact requirements.
+
+The provided text describes APIs for Rokt, but doesn't contain information on how to *create* a channel within the Rokt platform.  The documentation focuses on interacting with existing Rokt systems via their APIs.
+
+To create a channel for Rokt, you'll need to contact your Rokt account manager or their support team ([support@rokt.com]).  The process likely involves setting up your account and configuring the specific integration method (e.g., using their Web SDK, Event API, or one of their platform integrations like Shopify).  They will guide you through the necessary steps.  The documentation does not provide self-service instructions for channel creation.
+
+The provided text is extensive documentation for Rokt's various APIs.  To help you integrate with Rokt, I need more specifics about your needs.  Please tell me:
+
+1. **Are you a Rokt Advertiser or a Rokt Partner?**  This significantly impacts which APIs you'll use.  Advertisers focus on campaign management and conversion tracking, while partners focus on integrating Rokt into their website or app.
+
+2. **What is your integration goal?**  Do you want to:
+    * **Send conversion data to Rokt?** (This would involve the Event API.)
+    * **Retrieve performance data from Rokt?** (This would involve the Reporting API.)
+    * **Integrate Rokt offers into your website or app?** (This would involve the Web SDK, iOS SDK, Android SDK, React Native SDK, or Flutter SDK, depending on your platform.)
+    * **Manage custom audiences?** (This would involve the Custom Audience Import API.)
+    * **Use the Cart API for add-to-cart functionality?**
+    * **Manage nurture unsubscribes?** (This would involve the Nurture Unsubscribe API.)
+
+3. **What is your technical setup?**  What programming languages and frameworks are you using?  This will help determine the best approach for integration.
+
+4. **Do you have an existing Rokt account?** If so, do you have your API keys and account ID?
+
+Once I have this information, I can provide more tailored guidance, including code examples and specific instructions based on the relevant Rokt API documentation.
+
+This document contains API documentation for several different platforms, primarily focusing on Rokt and Bird.  Here's a breakdown of the key APIs and their functionalities:
+
+**Rokt APIs:**
+
+* **Custom Audience Import API (v3 and Legacy):** This API allows advertisers and partners to import custom audience lists (emails or SHA256 hashed emails) to target or suppress users in their campaigns.  The v3 version uses Basic HTTP authentication with a public and secret key pair, while the legacy version uses an Authorization header with an API key.  Both APIs have similar request bodies, limits, and response handling.  Key parameters include `accountId`, `action` (include/exclude), and `list` (optional).
+
+* **Nurture Unsubscribe API:** This API allows advertisers and partners to unsubscribe customers from Rokt email nurture campaigns in real-time.  It uses an Authorization header with an API key for authentication and accepts a single email address as input.
+
+**Bird APIs:**
+
+* **Contacts API:** This API allows management of contact data, including creating, organizing, and updating contact records.  It supports multiple identifiers (email, phone number), custom attributes, suppressions, and lists.
+
+* **Conversations API:** This API simplifies managing conversations across multiple channels (SMS, email, WhatsApp).  It allows creating new conversations, sending and replying to messages, managing participants, and retrieving conversation details.  Key concepts include participant types (contact, user, accessKey, flow).
+
+* **Channels API:** This API provides an omnichannel messaging solution for sending and receiving messages across various services.  It requires specific permissions to manage channels, create connectors, and send messages.
+
+* **Accounts API:**  (Briefly mentioned) This API allows programmatic management of Bird accounts, including user invitations and workspace setup.
+
+* **Access Policies and Roles APIs:** These APIs manage access control to Bird resources.  Access policies define rules for accessing specific resources, while access roles group policies and assign them to users or access keys.
+
+**Other Rokt Information:**
+
+* **Rokt Policies Overview:** This section details Rokt's policies regarding content, accuracy, consent, and prohibited/sensitive categories for advertisers and partners.
+
+* **Rokt Ecommerce:** This section describes Rokt's Ecommerce platform, which offers various features to optimize transaction experiences, increase revenue, and improve customer lifetime value.
+
+**Key Differences and Considerations:**
+
+* **Authentication:** Rokt APIs primarily use API keys (either through Basic Auth or Authorization header), while Bird APIs use Access Keys and Bearer tokens (JWT).
+
+* **Error Handling:** Both platforms provide standard HTTP status codes (e.g., 200, 400, 500) to indicate success or failure of API requests.
+
+* **Rate Limiting:**  Both platforms likely have rate limits to prevent abuse.  Check the documentation for specifics.
+
+* **Data Security:**  Both platforms emphasize data security and privacy.  Pay close attention to their security guidelines and best practices.
+
+
+This summary provides a high-level overview.  For detailed information and implementation instructions, refer to the specific API documentation within the provided text.  Remember to replace placeholder values (API keys, IDs, etc.) with your actual credentials.
+

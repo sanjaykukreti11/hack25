@@ -1,3 +1,5 @@
+import os
+
 import requests
 import json
 import re
@@ -11,8 +13,11 @@ def load_text_from_file(file_path: str) -> str:
         return file.read()
 
 def generate_custom_prompt(file_name, int_id, action_id) -> str:
-    file1_text = load_text_from_file("/Users/sanjaykukreti/Desktop/zeotap_repo/Hack2025/prompts/test_channel_info.txt")
-    file2_text = load_text_from_file(file_name)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_dir = os.path.join(base_dir, "prompts")
+
+    file1_text = load_text_from_file(os.path.join(prompt_dir, "channel_info2.txt"))
+    file2_text = load_text_from_file(os.path.join(prompt_dir, file_name))
     prompt = f"""
 ### Context from File 1:
 

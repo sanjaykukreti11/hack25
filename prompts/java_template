@@ -1,0 +1,59 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+public class PostApiTest {
+
+    public static void main(String[] args) {
+        try {
+            // Define platform and build API URL
+            String platform = "platform"; // Replace with your actual platform name
+            String apiUrl = String.format(
+                "https://sandbox-evt.mcm-api.moloco.com/rmp/event/v1/platforms/%s/userevents", platform);
+            URL url = new URL(apiUrl);
+
+            // Open HTTP connection
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            // Create JSON request body
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode requestBody = mapper.createObjectNode();
+            requestBody.put("event_type", "SEARCH");       // Example: SEARCH, CLICK, etc.
+            requestBody.put("channel_type", "APP");        // Example: APP, WEB, etc.
+            requestBody.put("timestamp", System.currentTimeMillis());
+            requestBody.put("search_query", "Hello");
+            requestBody.put("user_id", "hashed_user_id");  // Replace with hashed user ID
+
+            // Convert to JSON string
+            String jsonInputString = mapper.writeValueAsString(requestBody);
+
+            // Send request
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            // Read response
+            int status = conn.getResponseCode();
+            System.out.println("Response Code: " + status);
+
+            Scanner scanner = new Scanner(conn.getInputStream(), "UTF-8");
+            String response = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+            System.out.println("Response: " + response);
+
+            scanner.close();
+            conn.disconnect();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
